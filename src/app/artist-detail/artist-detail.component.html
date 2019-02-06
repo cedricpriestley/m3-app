@@ -1,0 +1,21 @@
+<div *ngIf="artist">
+
+	<h2>{{artist.name | uppercase}} Details</h2>
+	<!--<div><span>id: </span>{{artist.id}}</div>-->
+	<div><span>name: </span>{{artist.name}}</div>
+  <div><span>disambiguation: </span>{{artist.disambiguation}}</div>
+    <div><span>gender: </span>{{artist.gender}}</div>
+  <!--<div>
+    <label>name:
+      <input [(ngModel)]="artist.name" placeholder="name" />
+    </label>
+  </div>-->
+  <a class="col-1-4"
+    routerLink="/artist/{{artist.id}}/release-groups">
+    <div class="module artist">
+      <h4>View {{artist.name}} releases groups</h4>
+    </div>
+  </a>
+</div>
+<button (click)="goBack()">go back</button>
+<ngx-json-viewer [json]="artist" [expanded]="false"></ngx-json-viewer>

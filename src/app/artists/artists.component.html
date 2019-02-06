@@ -1,0 +1,9 @@
+<h2>Ng Artists</h2>
+<ul class="artists">
+  <li *ngFor="let artist of artists | paginate: { itemsPerPage: 5, currentPage: p, totalItems: total }">
+    <a routerLink="/artist/{{artist.id}}">
+      <span class="badge">{{artist.name}}</span>
+    </a>
+  </li>
+</ul>
+<ngx-json-viewer [json]="artists" [expanded]="false"></ngx-json-viewer>
