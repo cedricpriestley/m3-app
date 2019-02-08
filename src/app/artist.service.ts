@@ -13,7 +13,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class ArtistService {
 
-  private artistsUrl = 'api/artists';  // URL to web api
+  private artistsUrl = 'http://localhost:8000/api/artist';  // URL to web api
   private ret = null;
 
   constructor(
@@ -50,9 +50,8 @@ export class ArtistService {
   //}
 
   /** GET artist by id. Will 404 if id not found */
-  getArtist(mbid: string): Observable<Object> {
-    //const url = `${this.artistsUrl}/${mbid}`;
-    const url = `https://musicbrainz.org/ws/2/artist/${mbid}?inc=aliases+tags+artist-rels+event-rels+label-rels+recording-rels+release-rels+release-group-rels+url-rels+work-rels&fmt=json`;
+  getArtist(id: number): Observable<Object> {
+    const url = `${this.artistsUrl}/${id}`;
     this.log(url);
 //aliases+tags+area-rels+artist-rels+event-rels+instrument-rels+label-rels+place-rels+recording-rels+release-rels+release-group-rels+series-rels+url-rels+work-rels
     return this.http.get<Object>(url).pipe(

@@ -11,6 +11,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { HomeComponent } from './home/home.component';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ArtistSearchComponent } from './artist-search/artist-search.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ArtistDetailComponent,
     MessagesComponent,
     HomeComponent,
+    ArtistSearchComponent,
   ],
   imports: [
     BrowserModule,

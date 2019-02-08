@@ -23,7 +23,7 @@ export class ArtistDetailComponent implements OnInit {
   }
 
   getArtist(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.artistService.getArtist(id)
       .subscribe(artist => {
         this.artist = artist;
