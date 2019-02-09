@@ -50,14 +50,26 @@ export class ArtistService {
   //}
 
   /** GET artist by id. Will 404 if id not found */
-  getArtist(id: number): Observable<Object> {
-    const url = `${this.artistsUrl}/${id}`;
+  getArtist(gid: string): Observable<Object> {
+    const url = `${this.artistsUrl}/${gid}`;
     this.log(url);
 //aliases+tags+area-rels+artist-rels+event-rels+instrument-rels+label-rels+place-rels+recording-rels+release-rels+release-group-rels+series-rels+url-rels+work-rels
     return this.http.get<Object>(url).pipe(
       //tap(_ => this.log(`fetched artist id=${mbid}`)),
       //catchError(this.handleError<Artist>(`getArtist id=${mbid}`))
     );
+  }
+
+  importArtist(gid: string): Observable<Object> {
+    const url = `${this.artistsUrl}/import/${gid}`;
+    this.log(url);
+    return this.http.get<Object>(url).pipe();
+  }
+
+  resetArtist(gid: string): Observable<Object> {
+    const url = `${this.artistsUrl}/reset/${gid}`;
+    this.log(url);
+    return this.http.get<Object>(url).pipe();
   }
 
   /** Log a ArtistService message with the MessageService */
@@ -93,11 +105,11 @@ export class ArtistService {
       return of([]);
     }
     //this.log(`${this.artistsUrl}&query=${term}`);
-    let url = `http://localhost:8000/api/search/artist/${term}/0/30`;
-    //let url = `https://musicbrainz.org/ws/2/artist?limit=30&offset=0&fmt=json&query=${term}`
+    //let url = `http://localhost:8000/api/search/artist/${term}/0/30`;
+    let url = `https://musicbrainz.org/ws/2/artist?limit=30&offset=0&fmt=json&query=${term}`
     this.log(url);
     return this.http.get<Object[]>(url).pipe(
-      //map(res => res['artists']),
+      map(res => res['artists']),
       tap(_ => this.log(`found artists matching "${term}"`)),
       //catchError(this.handleError<Artist[]>('searchArtists', []))
     );

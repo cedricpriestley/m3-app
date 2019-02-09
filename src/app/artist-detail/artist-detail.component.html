@@ -11,11 +11,13 @@
     </label>
   </div>-->
   <a class="col-1-4"
-    routerLink="/artist/{{artist._id}}/release-groups">
+    routerLink="/artist/{{artist.gid}}/release-groups">
     <div class="module artist">
       <h4>View {{artist.name}} releases groups</h4>
     </div>
   </a>
 </div>
 <button (click)="goBack()">go back</button>
+<button (click)="importArtist()">import</button>
+<button (click)="resetArtist()">reset</button>
 <ngx-json-viewer [json]="artist" [expanded]="false"></ngx-json-viewer>
