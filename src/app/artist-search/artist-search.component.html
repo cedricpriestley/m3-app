@@ -5,7 +5,7 @@
 
   <ul class="search-result">
     <li *ngFor="let artist of artists$ | async" >
-      <a routerLink="/artist/{{artist.id}}">
+      <a routerLink="/artist/{{artist._id}}">
         {{artist.name}} - {{artist.disambiguation}}
       </a>
     </li>

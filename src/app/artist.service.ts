@@ -93,9 +93,11 @@ export class ArtistService {
       return of([]);
     }
     //this.log(`${this.artistsUrl}&query=${term}`);
-    this.log(`https://musicbrainz.org/ws/2/artist?limit=30&offset=0&fmt=json&query=${term}`);
-    return this.http.get<Object[]>(`https://musicbrainz.org/ws/2/artist?limit=30&offset=0&fmt=json&query=${term}`).pipe(
-      map(res => res['artists']),
+    let url = `http://localhost:8000/api/search/artist/${term}/0/30`;
+    //let url = `https://musicbrainz.org/ws/2/artist?limit=30&offset=0&fmt=json&query=${term}`
+    this.log(url);
+    return this.http.get<Object[]>(url).pipe(
+      //map(res => res['artists']),
       tap(_ => this.log(`found artists matching "${term}"`)),
       //catchError(this.handleError<Artist[]>('searchArtists', []))
     );
