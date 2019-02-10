@@ -50,8 +50,8 @@ export class ArtistService {
   //}
 
   /** GET artist by id. Will 404 if id not found */
-  getArtist(gid: string): Observable<Object> {
-    const url = `${this.artistsUrl}/${gid}`;
+  getArtist(id: string): Observable<Object> {
+    const url = `${this.artistsUrl}/${id}`;
     this.log(url);
 //aliases+tags+area-rels+artist-rels+event-rels+instrument-rels+label-rels+place-rels+recording-rels+release-rels+release-group-rels+series-rels+url-rels+work-rels
     return this.http.get<Object>(url).pipe(
@@ -60,14 +60,14 @@ export class ArtistService {
     );
   }
 
-  importArtist(gid: string): Observable<Object> {
-    const url = `${this.artistsUrl}/import/${gid}`;
+  importArtist(id: string): Observable<Object> {
+    const url = `${this.artistsUrl}/import/${id}`;
     this.log(url);
     return this.http.get<Object>(url).pipe();
   }
 
-  resetArtist(gid: string): Observable<Object> {
-    const url = `${this.artistsUrl}/reset/${gid}`;
+  resetArtist(id: string): Observable<Object> {
+    const url = `${this.artistsUrl}/reset/${id}`;
     this.log(url);
     return this.http.get<Object>(url).pipe();
   }

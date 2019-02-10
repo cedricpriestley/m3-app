@@ -1,23 +1,37 @@
 <div *ngIf="artist">
-
-	<h2>{{artist.name | uppercase}} Details</h2>
-	<!--<div><span>id: </span>{{artist.id}}</div>-->
-	<div><span>name: </span>{{artist.name}}</div>
-  <div><span>disambiguation: </span>{{artist.disambiguation}}</div>
+  <div>
+    <button (click)="goBack()">go back</button>
+  </div>
+  <div>
+    <button (click)="importArtist()">import</button>
+    <button (click)="resetArtist()">reset</button>
+  </div>
+  <h2>{{artist.name | uppercase}} Details</h2>
+  <!--
+  <div>
+    <div><span>_id: </span>{{artist._id}}</div>
+    <div><span>id: </span>{{artist.id}}</div>
+    <div><span>name: </span>{{artist.name}}</div>
+    <div><span>sort_name: </span>{{artist.sort_name}}</div>
+    <div><span>disambiguation: </span>{{artist.disambiguation}}</div>
     <div><span>gender: </span>{{artist.gender}}</div>
+    <div><span>type: </span>{{artist.type}}</div>
+    <div><span>country: </span>{{(artist.country) ? artist.country.code : ''}}</div>
+    <div><span>tags: </span>{{(artist.tags) ? artist.tags.join(', '): ''}}</div>
+    <div><span>last_updated: </span>{{artist.last_updated}}</div>
+    <div><span>born: </span>{{(artist['life-span'])? artist['life-span'].begin: ''}}</div>
+  </div>
+  -->
   <!--<div>
     <label>name:
       <input [(ngModel)]="artist.name" placeholder="name" />
     </label>
   </div>-->
-  <a class="col-1-4"
-    routerLink="/artist/{{artist.gid}}/release-groups">
+  <!--<a class="col-1-4" routerLink="/artist/{{artist.id}}/release-groups">
     <div class="module artist">
       <h4>View {{artist.name}} releases groups</h4>
     </div>
-  </a>
+  </a>-->
 </div>
-<button (click)="goBack()">go back</button>
-<button (click)="importArtist()">import</button>
-<button (click)="resetArtist()">reset</button>
+<!--<div><span>Json data:</span></div>-->
 <ngx-json-viewer [json]="artist" [expanded]="false"></ngx-json-viewer>

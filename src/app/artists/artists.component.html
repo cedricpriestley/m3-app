@@ -2,7 +2,7 @@
 <app-artist-search></app-artist-search>
 <ul class="artists">
   <li *ngFor="let artist of artists | paginate: { itemsPerPage: 5, currentPage: p, totalItems: total }">
-    <a routerLink="/artist/{{ artist }}">
+    <a routerLink="/artist/{{ artist.id }}">
       <span class="badge">{{ artist.name }}</span>
     </a>
   </li>

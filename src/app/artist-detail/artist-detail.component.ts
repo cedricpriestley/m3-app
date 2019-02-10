@@ -23,8 +23,8 @@ export class ArtistDetailComponent implements OnInit {
   }
 
   getArtist(): void {
-    const gid = this.route.snapshot.paramMap.get('gid');
-    this.artistService.getArtist(gid)
+    const id = this.route.snapshot.paramMap.get('id');
+    this.artistService.getArtist(id)
       .subscribe(artist => {
         this.artist = artist;
         //this.artist.gender = Gender.Female;
@@ -36,16 +36,16 @@ export class ArtistDetailComponent implements OnInit {
   }
 
   importArtist(): void {
-    const gid = this.route.snapshot.paramMap.get('gid');
-    this.artistService.importArtist(gid)
+    const id = this.route.snapshot.paramMap.get('id');
+    this.artistService.importArtist(id)
       .subscribe(artist => {
         this.artist = artist;
       });
   }
 
   resetArtist(): void {
-    const gid = this.route.snapshot.paramMap.get('gid');
-    this.artistService.resetArtist(gid)
+    const id = this.route.snapshot.paramMap.get('id');
+    this.artistService.resetArtist(id)
       .subscribe(artist => {
         this.artist = artist;
       });
