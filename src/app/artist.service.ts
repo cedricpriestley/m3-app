@@ -6,10 +6,9 @@ import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { catchError, map, tap } from 'rxjs/operators';
-//import 'rxjs/add/operator/map'
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ArtistService {
 
@@ -20,44 +19,61 @@ export class ArtistService {
     private http: HttpClient,
     private messageService: MessageService) { }
 
-  /** GET artists from the server */
-  getArtists(name: string): Observable<Object[]> {
-    name = 'Michael Jackson';
-    this.artistsUrl = "https://musicbrainz.org/ws/2/artist?limit=30&offset=0&fmt=json";
-    //this.artistsUrl = "http://localhost/artist-search.json";
-
-    this.ret = this.http.get<Object[]>(this.artistsUrl).pipe(
-      //catchError(this.handleError('getArtists', [])),
-      map(res => res['artists'])
-    )
-
-    //console.log(this.ret);
-
-    return this.ret;
-  }
-
   getTopArtists(): Observable<Object[]> {
     // TODO: send the message _after_ fetching the artists
     this.messageService.add('ArtistService: fetched top artists');
-    //console.log(ARTISTS);
     return of(ARTISTS);
   }
 
-  //getArtist(id: number): Observable<Artist> {
-  // TODO: send the message _after_ fetching the artist
-  //this.messageService.add(`ArtistService: fetched artist id=${id}`);
-  //return of(ARTISTS.find(artist => artist.id === id));
-  //}
-
-  /** GET artist by id. Will 404 if id not found */
   getArtist(id: string): Observable<Object> {
     const url = `${this.artistsUrl}/${id}`;
     this.log(url);
-//aliases+tags+area-rels+artist-rels+event-rels+instrument-rels+label-rels+place-rels+recording-rels+release-rels+release-group-rels+series-rels+url-rels+work-rels
     return this.http.get<Object>(url).pipe(
       //tap(_ => this.log(`fetched artist id=${mbid}`)),
       //catchError(this.handleError<Artist>(`getArtist id=${mbid}`))
     );
+  }
+
+  getArtistCount() {
+    const url = `${this.artistsUrl}/count`;
+    this.log(url);
+    return this.http.get<number>(url).pipe(
+      //catchError(this.handleError<Artist[]>('searchArtists', []))
+    );
+  }
+
+  searchArtists(term: string): Observable<Object[]> {
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+
+    let url = `https://musicbrainz.org/ws/2/artist?limit=30&offset=0&fmt=json&query=${term}`
+    this.log(url);
+
+    return this.http.get<Object[]>(url).pipe(
+      map(res => res['artists']),
+      tap(_ => this.log(`found artists matching "${term}"`)),
+      //catchError(this.handleError<Artist[]>('searchArtists', []))
+    );
+  }
+
+  searchArtists2(term: string, offset: number, count: number): Observable<Object[]> {
+    let url = `${this.artistsUrl}/artist/search/${term}/${offset}/${count}`;
+    this.log(url);
+    let ret = this.http.get<Object[]>(url).pipe(
+      catchError(this.handleError<Object[]>('searchArtists2', []))
+    );
+    return ret;
+  }
+
+  browseArtists(offset: number, count: number): Observable<Object[]> {
+    let url = `${this.artistsUrl}/browse/${offset}/${count}`;
+    this.log(url);
+    let ret = this.http.get<Object[]>(url).pipe(
+      catchError(this.handleError<Object[]>('browseArtists', []))
+    );
+    return ret;
   }
 
   importArtist(id: string): Observable<Object> {
@@ -96,22 +112,5 @@ export class ArtistService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
-  }
-
-  /* GET artists whose name contains search term */
-  searchArtists(term: string): Observable<Object[]> {
-    if (!term.trim()) {
-      // if not search term, return empty hero array.
-      return of([]);
-    }
-    //this.log(`${this.artistsUrl}&query=${term}`);
-    //let url = `http://localhost:8000/api/search/artist/${term}/0/30`;
-    let url = `https://musicbrainz.org/ws/2/artist?limit=30&offset=0&fmt=json&query=${term}`
-    this.log(url);
-    return this.http.get<Object[]>(url).pipe(
-      map(res => res['artists']),
-      tap(_ => this.log(`found artists matching "${term}"`)),
-      //catchError(this.handleError<Artist[]>('searchArtists', []))
-    );
   }
 }

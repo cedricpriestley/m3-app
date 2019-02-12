@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { EntityService } from '../entity.service';
 import { ArtistService } from '../artist.service';
 
 @Component({
@@ -10,44 +11,45 @@ import { ArtistService } from '../artist.service';
 })
 export class ArtistDetailComponent implements OnInit {
 
-  artist: Object;
+  entity: Object;
+  id: string;
 
   constructor(
     private route: ActivatedRoute,
-    private artistService: ArtistService,
+    private entityService:EntityService,
+    private artistService:ArtistService,
     private location: Location
   ) { }
 
-  ngOnInit() {
-    this.getArtist();
+  ngOnInit(): void {
+    this.route.params.subscribe(
+      params => {
+        const id = params.id;
+        this.entityService.getEntity(id, 'artist')
+          .subscribe(entity => {
+            this.entity = entity;
+          });
+      },
+    );
   }
 
-  getArtist(): void {
+  import(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.artistService.getArtist(id)
-      .subscribe(artist => {
-        this.artist = artist;
-        //this.artist.gender = Gender.Female;
+    this.artistService.importArtist(id)
+      .subscribe(entity => {
+        this.entity = entity;
+      });
+  }
+
+  reset(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.artistService.resetArtist(id)
+      .subscribe(entity => {
+        this.entity = entity;
       });
   }
 
   goBack(): void {
     this.location.back();
-  }
-
-  importArtist(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.artistService.importArtist(id)
-      .subscribe(artist => {
-        this.artist = artist;
-      });
-  }
-
-  resetArtist(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.artistService.resetArtist(id)
-      .subscribe(artist => {
-        this.artist = artist;
-      });
   }
 }
