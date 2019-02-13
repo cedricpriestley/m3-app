@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { EntityService } from '../entity.service';
-import { ArtistService } from '../artist.service';
-import { ActivatedRoute } from '@angular/router';
+import { AreaService } from '../area.service';
 
 @Component({
-  selector: 'app-artist',
-  templateUrl: './artist.component.html',
-  styleUrls: ['./artist.component.css']
+  selector: 'app-area',
+  templateUrl: './area.component.html',
+  styleUrls: ['./area.component.css']
 })
-export class ArtistComponent {
+export class AreaComponent {
 
   entities: Object[];
-  entityName = 'Artist';
+  entityName = 'Area';
 
   p: number = 1;
   totalItems: number;
@@ -21,12 +20,11 @@ export class ArtistComponent {
 
   constructor(
     private entityService: EntityService,
-    private artistService: ArtistService,
-    private route: ActivatedRoute) {
-    }
+    private areaService: AreaService) {
+  }
 
   ngOnInit() {
-    //this.getTotal();
+    //this.getCount();
     //this.getTop();
     //this.getPage(1);
   }
@@ -44,19 +42,12 @@ export class ArtistComponent {
       );
   }
 
-  count(): void {
+  getCount(): void {
     this.entityService.getEntityCount(this.entityName)
       .subscribe(
         ret => {
           this.totalEntities = ret[0]['count'];
         }
       );
-  }
-
-  getTop(): void {
-    this.artistService.getTopArtists()
-      .subscribe(entities => {
-        this.entities = entities
-      });
   }
 }

@@ -6,13 +6,13 @@
     <button (click)="import()">import</button>
     <button (click)="reset()">reset</button>
   </div>
-  <h2>{{ entity.name }} Details</h2>
+  <h2>{{ entity.title }} Details</h2>
+
   <ngx-json-viewer [json]="entity" [expanded]="false"></ngx-json-viewer>
   <div *ngIf="entity">
-    <a
-      routerLink="/artist/{{entity.id}}/release-groups">
+    <a routerLink="/release-group/{{entity.id}}/release">
       <div>
-        <h4>View {{entity.name}} releases groups</h4>
+        <h4>View {{entity.title}} releases</h4>
       </div>
     </a>
   </div>

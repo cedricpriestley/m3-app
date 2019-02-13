@@ -12,6 +12,12 @@ import { HomeComponent } from './home/home.component';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { EntitySearchComponent } from './entity-search/entity-search.component';
+import { AreaComponent } from './area/area.component';
+import { AreaDetailComponent } from './area-detail/area-detail.component';
+import { ArtistReleaseGroupComponent } from './artist-release-group/artist-release-group.component';
+import { ReleaseGroupDetailComponent } from './release-group-detail/release-group-detail.component';
+import { ReleaseDetailComponent } from './release-detail/release-detail.component';
+import { ReleaseGroupReleaseComponent } from './release-group-release/release-group-release.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +27,13 @@ import { EntitySearchComponent } from './entity-search/entity-search.component';
     MessagesComponent,
     HomeComponent,
     EntitySearchComponent,
+    AreaComponent,
+    AreaDetailComponent,
+    ArtistReleaseGroupComponent,
+    ArtistReleaseGroupComponent,
+    ReleaseGroupDetailComponent,
+    ReleaseDetailComponent,
+    ReleaseGroupReleaseComponent,
   ],
   imports: [
     BrowserModule,

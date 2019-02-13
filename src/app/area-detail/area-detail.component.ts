@@ -2,34 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { EntityService } from '../entity.service';
-import { ArtistService } from '../artist.service';
+import { AreaService } from '../area.service';
 
 @Component({
-  selector: 'app-artist-detail',
-  templateUrl: './artist-detail.component.html',
-  styleUrls: ['./artist-detail.component.css']
+  selector: 'app-area-detail',
+  templateUrl: './area-detail.component.html',
+  styleUrls: ['./area-detail.component.css']
 })
-export class ArtistDetailComponent implements OnInit {
+export class AreaDetailComponent implements OnInit {
 
   entity: Object;
-  type: string = 'artist';
+  type: string = 'area';
 
   constructor(
     private route: ActivatedRoute,
     private entityService: EntityService,
-    private artistService: ArtistService,
+    private areaService: AreaService,
     private location: Location
   ) { }
 
   ngOnInit(): void {
-    this.route.data.subscribe(
-      data => {
-        let title = data.title;
-      }
-    );
     this.route.params.subscribe(
       params => {
         const id = params.id;
+        //const type = params.type;
         this.entityService.lookup(id, this.type)
           .subscribe(entity => {
             this.entity = entity;

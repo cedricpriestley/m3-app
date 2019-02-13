@@ -13,18 +13,39 @@ export class EntityService {
 
   private entityUrl = 'http://localhost:8000/api';  // URL to web api
   private ret = null;
+  private validEntities = ['area', 'artist'];
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService) {
+  }
 
-  getEntity(id: string, type: string): Observable<Object> {
+  lookup(id: string, type: string): Observable<Object> {
     const url = `${this.entityUrl}/${type}/${id}`;
     this.log(type, url);
     return this.http.get<Object>(url).pipe(
       //tap(_ => this.log(`fetched ${type} id=${id}`)),
       catchError(this.handleError<Object>(type, `getEntity id=${id}`))
     );
+  }
+
+  getEntityType(): string {
+    let parts = window.location.pathname.toLowerCase().split("/");
+    let ret = '';
+
+    if (parts && parts.length == 1) {
+      ret = parts[0];
+    }
+
+    if (parts && parts.length >= 2) {
+      ret = parts[1];
+    }
+
+    if (!ret
+      || !this.validEntities.includes(ret))
+      ret = 'artist';
+
+    return ret;
   }
 
   getEntityCount(type: string) {
@@ -36,17 +57,18 @@ export class EntityService {
     );
   }
 
-  searchEntities(term: string, type: string): Observable<Object[]> {
+  searchEntities(term: string): Observable<Object[]> {
+    let type = this.getEntityType();
     if (!term.trim()) {
       // if not search term, return empty entity array.
       return of([]);
     }
-    
+
     let url = `https://musicbrainz.org/ws/2/${type}?limit=30&offset=0&fmt=json&query=${term}`
     let mapType = `${type}s`;
 
     if (mapType == 'seriess') mapType = 'series';
-    
+
     this.log(type, url);
 
     return this.http.get<Object[]>(url).pipe(
@@ -55,18 +77,18 @@ export class EntityService {
       catchError(this.handleError<Object[]>(type, 'searchEntities', []))
     );
   }
-/*
-  searchArtists2(term: string, offset: number, count: number): Observable<Object[]> {
-    let url = `${this.entityUrl}/artist/search/${term}/${offset}/${count}`;
-    this.log(url);
-    let ret = this.http.get<Object[]>(url).pipe(
-      catchError(this.handleError<Object[]>('searchArtists2', []))
-    );
-    return ret;
-  }
-*/
+  /*
+    searchArtists2(term: string, offset: number, count: number): Observable<Object[]> {
+      let url = `${this.entityUrl}/artist/search/${term}/${offset}/${count}`;
+      this.log(url);
+      let ret = this.http.get<Object[]>(url).pipe(
+        catchError(this.handleError<Object[]>('searchArtists2', []))
+      );
+      return ret;
+    }
+  */
   browseEntities(type: string, offset: number, count: number): Observable<Object[]> {
-    let entityName = type.toLowerCase();    
+    let entityName = type.toLowerCase();
     let url = `${this.entityUrl}/${type}/browse/${entityName}/${count}`;
     this.log(type, url);
     let ret = this.http.get<Object[]>(url).pipe(
@@ -74,23 +96,23 @@ export class EntityService {
     );
     return ret;
   }
-/*
-  importArtist(id: string): Observable<Object> {
-    const url = `${this.entityUrl}/import/${id}`;
-    this.log(url);
+
+  import(id: string, type: string): Observable<Object> {
+    const url = `${this.entityUrl}/${type}/import/${id}`;
+    this.log(type, url);
     return this.http.get<Object>(url).pipe();
   }
 
-  resetArtist(id: string): Observable<Object> {
-    const url = `${this.entityUrl}/reset/${id}`;
-    this.log(url);
+  reset(id: string, type): Observable<Object> {
+    const url = `${this.entityUrl}/${type}/reset/${id}`;
+    this.log(type, url);
     return this.http.get<Object>(url).pipe();
   }
-*/
-  /** Log a ArtistService message with the MessageService */
+
+  /** Log a EntityService message with the MessageService */
   private log(type: string, message: string) {
     //return;
-    this.messageService.add(`EntityService (): ${message}`);
+    this.messageService.add(`EntityService (type): ${message}`);
   }
 
   /**
