@@ -1,0 +1,13 @@
+<h2>{{(releaseGroup) ? releaseGroup.title : ''}} Releases</h2>
+
+<div class="has-text-centered">
+	<div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
+	<pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>
+<ul>
+	<li
+		*ngFor="let release of releases | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
+		<div><span></span><a routerLink="/release/{{release.id}}">{{release.title}}</a></div>
+	</li>
+</ul>
+<ngx-json-viewer [json]="releases" [expanded]="false"></ngx-json-viewer>

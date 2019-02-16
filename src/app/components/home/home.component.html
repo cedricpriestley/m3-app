@@ -1,0 +1,12 @@
+<!--<app-artist-search></app-artist-search>-->
+<h3>Top Artists</h3>
+<div class="grid grid-pad">
+  <div *ngFor="let artist of artists">
+    <a class="col-1-4" routerLink="/artist/{{artist.id}}">
+      <div class="module artist">
+        <h4>{{artist.name}}</h4>
+      </div>
+    </a>
+    <ngx-json-viewer [json]="artist" [expanded]="false"></ngx-json-viewer>
+  </div>
+</div>

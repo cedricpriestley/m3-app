@@ -1,37 +1,30 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { ArtistComponent } from './artist/artist.component';
-import { ArtistDetailComponent } from './artist-detail/artist-detail.component';
-import { ArtistReleaseGroupComponent } from './artist-release-group/artist-release-group.component';
-import { AreaComponent } from './area/area.component';
-import { ReleaseGroupReleaseComponent } from './release-group-release/release-group-release.component';
-import { AreaDetailComponent } from './area-detail/area-detail.component';
-import { ReleaseGroupDetailComponent } from './release-group-detail/release-group-detail.component';
-import { ReleaseDetailComponent } from './release-detail/release-detail.component';
+import { HomeComponent } from './components/home/home.component';
+import { AreaComponent } from './components/entities/area/area.component';
+import { EventComponent } from './components/entities/event/event.component';
+import { LabelComponent } from './components/entities/label/label.component';
+import { PlaceComponent } from './components/entities/place/place.component';import { ArtistComponent } from './components/entities/artist/artist.component';
+import { ReleaseComponent } from './components/entities/release/release.component';
+import { ReleaseGroupComponent } from './components/entities/release-group/release-group.component';
+import { AreasComponent } from './components/lists/areas/areas.component';
+import { ArtistReleaseGroupsComponent } from './components/lists/artist-release-groups/artist-release-groups.component';
+import { ArtistReleasesComponent } from './components/lists/artist-releases/artist-releases.component';
+import { ReleaseGroupReleasesComponent } from './components/lists/release-group-releases/release-group-releases.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  {
-    path: 'artist/:id',
-    component: ArtistDetailComponent,
-    data: { title: 'Artist Detail' }
-  },
-  {
-    path: 'artist',
-    component: ArtistComponent,
-    data: { title: 'Artists' }
-  },
-  { path: 'artist/:id/release-groups', component: ArtistReleaseGroupComponent },
-  { path: 'release-group/:id', component: ReleaseGroupDetailComponent },
-  { path: 'release-group/:id/release', component: ReleaseGroupReleaseComponent },
-  { path: 'area/:id', component: AreaDetailComponent },
-  {
-    path: 'area',
-    component: AreaComponent,
-    data: { title: 'Areas' }
-  },
-  { path: 'release/:id', component: ReleaseDetailComponent },
+  { path: 'artist/:id', component: ArtistComponent },
+  { path: 'artist/:id/release-groups', component: ArtistReleaseGroupsComponent },
+  { path: 'release-group/:id', component: ReleaseGroupComponent },
+  { path: 'release-group/:id/release', component: ReleaseGroupReleasesComponent },
+  { path: 'area/:id', component: AreaComponent },
+  { path: 'artist/:id/releases', component: ArtistReleasesComponent },
+  { path: 'event/:id', component: EventComponent },
+  { path: 'label/:id', component: LabelComponent },
+  { path: 'place/:id', component: PlaceComponent },
+  { path: 'release/:id', component: ReleaseComponent },
 ];
 
 @NgModule({
