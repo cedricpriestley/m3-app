@@ -6,6 +6,19 @@
   </div>
   -->
   <h2>{{ entity.name }}</h2>
+  <div><img src="{{ entity.image_url }}" /></div>
+  <div>
+    <h4>Similar Artists</h4>
+    <div
+      *ngFor="let similarArtist of entity['similar_artists'] | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
+      <div>
+        <a routerLink="/artist/{{similarArtist.id}}">
+          <img width="75px" src="{{ similarArtist.image_url }}" />
+          <div>{{ similarArtist.name }}</div>
+        </a>
+      </div>
+    </div>
+  </div>
   <div>
     <a routerLink="/artist/{{entity.id}}/release-groups">
       <div>
