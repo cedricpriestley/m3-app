@@ -28,6 +28,7 @@ import { ReleaseGroupComponent } from './components/entities/release-group/relea
 import { SearchBoxComponent } from './components/search/search-box/search-box.component';
 import { SearchResultComponent } from './components/search/search-result/search-result.component';
 import { ArtistReleasesComponent } from './components/lists/artist-releases/artist-releases.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ArtistReleasesComponent } from './components/lists/artist-releases/arti
     ArtistReleasesComponent,
     ArtistReleaseGroupsComponent,
     ReleaseGroupsComponent,
-    ReleaseComponent
+    ReleaseComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,15 @@
-<div *ngIf="entity">
-  <div>
-    <button (click)="import()">import</button>
-    <button (click)="reset()">reset</button>
-  </div>
-  <h2>{{ entity.name }}</h2>
-  <ngx-json-viewer [json]="entity" [expanded]="false"></ngx-json-viewer>
+<h2>{{ entityName}}</h2>
+<!--
+<div>
+  <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
+  <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
+-->
+<ul>
+  <li *ngFor="let entity of entities | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
+    <a routerLink="/{{entityName | lowercase}}/{{ entity.id }}">
+      <span>{{ entity.name }}</span>
+    </a>
+  </li>
+</ul>
+<ngx-json-viewer [json]="entities" [expanded]="false"></ngx-json-viewer>

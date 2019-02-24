@@ -1,22 +1,24 @@
-<div *ngIf="result._entity_type == 'artist'">
-  <a routerLink="/{{ result._entity_type }}/{{ result.id }}">
-    <span>{{ result.name }}
-      {{ (result.disambiguation) ? ' - ' + result.disambiguation : '' }}</span>
-  </a>
+<div class="searchResult" #searchResults>
+  <div *ngIf="result._entity_type == 'artist'">
+    <a (click)="hideSearchResults()" routerLink="/{{ result._entity_type }}/{{ result.id }}">
+      <span>{{ result.name }}
+        {{ (result.disambiguation) ? ' - ' + result.disambiguation : '' }}</span>
+    </a>
+  </div>
+  <div *ngIf="result._entity_type == 'release'">
+    <a routerLink="/{{ result._entity_type }}/{{ result.id }}">
+      <span>{{ result.title }}</span>
+    </a>
+    <span> by </span>
+    <a routerLink="/artist/{{ result['artist-credit'][0].artist.id }}">
+      <span>{{ result['artist-credit'][0].artist.name }}</span>
+    </a>
+  </div>
+  <div *ngIf="result._entity_type == 'recording'">
+    <a routerLink="/{{ result._entity_type }}/{{ result.id }}">
+      <span>{{ result.title }}
+        {{ (result.disambiguation) ? ' - ' + result.disambiguation : '' }}</span>
+    </a>
+  </div>
+  <ngx-json-viewer [json]="result" [expanded]="false"></ngx-json-viewer>
 </div>
-<div *ngIf="result._entity_type == 'release'">
-  <a routerLink="/{{ result._entity_type }}/{{ result.id }}">
-    <span>{{ result.title }}</span>
-  </a>
-  <span> by </span>
-  <a routerLink="/artist/{{ result['artist-credit'][0].artist.id }}">
-    <span>{{ result['artist-credit'][0].artist.name }}</span>
-  </a>
-</div>
-<div *ngIf="result._entity_type == 'recording'">
-  <a routerLink="/{{ result._entity_type }}/{{ result.id }}">
-    <span>{{ result.title }}
-      {{ (result.disambiguation) ? ' - ' + result.disambiguation : '' }}</span>
-  </a>
-</div>
-<ngx-json-viewer [json]="result" [expanded]="false"></ngx-json-viewer>

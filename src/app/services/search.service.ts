@@ -12,15 +12,49 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-  search(query: string, type: string): Observable<Object[]> {
+  searchArtist(query: string): Observable<{}[]> {
     if (!query) return of([]);
 
-    const queryUrl = `https://musicbrainz.org/ws/2/${type}?limit=50&offset=0&fmt=json&query=${query}`;
+    let queryUrl = '';
+    //let ret = [];//new Observable<{}[]>();
+
+    queryUrl = `https://musicbrainz.org/ws/2/artist?limit=10&offset=0&fmt=json&query=${query}`;
     return this.http.get(queryUrl).pipe(map(response => {
-      return response[`${type}s`].map(entity => {
-        entity['_entity_type'] = type;
+      return response['artists'].map(entity => {
+        entity['_entity_type'] = 'artist';
         return entity;
       });
     }));
+    /*
+        queryUrl = `https://musicbrainz.org/ws/2/release?limit=10&offset=0&fmt=json&query=${query}`;
+        ret['releases'] = this.http.get<Object[]>(queryUrl).pipe(map(response => {
+          return response['releases'].map(entity => {
+            entity['_entity_type'] = 'release';
+            return entity;
+          });
+        }));
+    */
+    //console.log(ret['artists']);
+
+    //return ret;
+  }
+
+
+  searchRelease(query: string): Observable<{}[]> {
+    if (!query.trim()) return of([]);
+
+    let queryUrl = '';
+    //let ret = [];//new Observable<{}[]>();
+
+    queryUrl = `https://musicbrainz.org/ws/2/release?limit=10&offset=0&fmt=json&query=${query}`;
+    return this.http.get(queryUrl).pipe(
+      map(response => {
+        return response['releases'].map(entity => {
+          entity['_entity_type'] = 'release';
+          return entity;
+        });
+      }),
+      //catchError(this.handleError<Hero[]>('searchHeroes', [])),
+    );
   }
 }

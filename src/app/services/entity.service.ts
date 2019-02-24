@@ -22,11 +22,12 @@ export class EntityService {
 
   lookup(id: string, type: string): Observable<Object> {
     const url = `${this.entityUrl}/${type}/${id}`;
-    this.log(type, url);
-    return this.http.get<Object>(url).pipe(
+    let entity = this.http.get<Object>(url).pipe(
       //tap(_ => this.log(`fetched ${type} id=${id}`)),
       catchError(this.handleError<Object>(type, `getEntity id=${id}`))
     );
+
+    return entity;
   }
 
   getEntityType(): string {
@@ -123,6 +124,7 @@ export class EntityService {
 
   reset(id: string, type): Observable<Object> {
     const url = `${this.entityUrl}/${type}/reset/${id}`;
+    console.log(url);
     this.log(type, url);
     return this.http.get<Object>(url).pipe();
   }

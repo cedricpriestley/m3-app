@@ -22,13 +22,21 @@ export class ReleaseComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.route.data.subscribe(
+      data => {
+        let title = data.title;
+      }
+    );
     this.route.params.subscribe(
       params => {
         const id = params.id;
-        //const type = params.type;
         this.entityService.lookup(id, this.type)
           .subscribe(entity => {
             this.entity = entity;
+            console.log(entity);
+            if (!entity) {
+              this.import();
+            }
           });
       },
     );

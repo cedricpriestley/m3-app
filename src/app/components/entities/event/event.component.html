@@ -1,8 +1,10 @@
 <div *ngIf="entity">
+  <!--
   <div>
     <button (click)="import()">import</button>
     <button (click)="reset()">reset</button>
   </div>
+  -->
   <h2>{{ entity.name }} Details</h2>
   <ngx-json-viewer [json]="entity" [expanded]="false"></ngx-json-viewer>
 </div>

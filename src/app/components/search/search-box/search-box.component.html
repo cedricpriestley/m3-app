@@ -1,6 +1,1 @@
-<input type="text" class="form-control" placeholder="Search" autofocus [formControl]="searchInput">
-<select [formControl]="searchOption">
-  <option value="artist">Artists</option>
-  <option value="release">Albums</option>
-  <option value="recording">Songs</option>
-</select>
+<input #searchBox type="text" class="form-control" placeholder="Search" autofocus [formControl]="searchInput">

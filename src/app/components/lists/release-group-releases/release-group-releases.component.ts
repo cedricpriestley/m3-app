@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { EntityService } from '../../../services/entity.service';
-import { ArtistService } from '../../../services/artist.service';
 import { ReleaseGroupService } from '../../../services/release-group.service';
 import { ReleaseService } from '../../../services/release.service';
 import { FormsModule } from '@angular/forms';
@@ -13,8 +12,6 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./release-group-releases.component.css']
 })
 export class ReleaseGroupReleasesComponent implements OnInit {
-  //@Input() artist: Artist;
-  artist: Object;
   releases: Object[];
   releaseGroup: Object;
   p: number = 1;
@@ -27,21 +24,13 @@ export class ReleaseGroupReleasesComponent implements OnInit {
     private entityService: EntityService,
     private releaseGroupService: ReleaseGroupService,
     private releaseService: ReleaseService,
-    private artistService: ArtistService,
     private location: Location
   ) {
   }
 
   ngOnInit() {
-    this.getArtist();
     this.getReleaseGroup();
     this.getPage(1);
-  }
-
-  getArtist(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.artistService.getArtist(id)
-      .subscribe(artist => this.artist = artist);
   }
 
   getReleaseGroup(): void {
@@ -51,13 +40,7 @@ export class ReleaseGroupReleasesComponent implements OnInit {
         this.releaseGroup = releaseGroup;
       });
   }
-  /*
-    getReleaseGroup(): void {
-      const id = this.route.snapshot.paramMap.get('id');
-      this.artistService.getArtist(id)
-        .subscribe(artist => this.artist = artist);
-    }
-  */
+
   getPage(page: number): void {
     this.loading = true;
     const id = this.route.snapshot.paramMap.get('id');

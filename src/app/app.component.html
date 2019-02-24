@@ -1,8 +1,21 @@
 <h1>{{title}}</h1>
+<nav>
+	<ul>
+		<li>
+			<a routerLink="/home">Home</a>
+		</li>
+		<li>
+			<a routerLink="/home">Contact</a>
+		</li>
+		<li>
+			<a routerLink="/home">About</a>
+		</li>
+	</ul>
+</nav>
 <div>
 	<button (click)="goBack()">go back</button>
 </div>
-<!--<app-search-form></app-search-form>-->
+<!--<app-search></app-search>-->
 <div class='container'>
 	<div class="page-header">
 		<h2>Search
@@ -12,13 +25,21 @@
 
 	<div class="row">
 		<div class="input-group input-group-lg col-sm-8 col-md-8">
-			<app-search-box (loading)="loading = $event" (results)="updateResults($event)"></app-search-box>
+			<app-search-box (loading)="loading = $event" (artistResults)="updateArtistResults($event)"
+				(releaseResults)="updateReleaseResults($event)"></app-search-box>
 		</div>
 	</div>
-
-	<div class="row" style="margin-top:20px">
-		<p>{{message}}</p>
-		<app-search-result *ngFor="let result of results" [result]="result"></app-search-result>
+	<div *ngIf="artistResults && artistResults.length > 0" class="row" style="margin-top:20px">
+		<!--<h3>Artists results</h3>-->
+		<!--<ngx-json-viewer [json]="results" [expanded]="false"></ngx-json-viewer>-->
+		<p id="artistSearchResultsHeader"><strong>{{artistMessage}}</strong></p>
+		<app-search-result *ngFor="let result of artistResults" [result]="result"></app-search-result>
+	</div>
+	<div *ngIf="releaseResults && releaseResults.length > 0" class="row" style="margin-top:20px">
+		<!--<h3>Albums results</h3>-->
+		<!--<ngx-json-viewer [json]="results" [expanded]="false"></ngx-json-viewer>-->
+		<p id="releaseSearchResultsHeader"><strong>{{releaseMessage}}</strong></p>
+		<app-search-result *ngFor="let result of releaseResults" [result]="result"></app-search-result>
 	</div>
 </div>
 <router-outlet></router-outlet>
