@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { EntityService } from '../../../services/entity.service';
+import { MusicBrainzService } from '../../../services/music-brainz.service';
 import { ArtistService } from '../../../services/artist.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class ArtistComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private musicBrainzService: MusicBrainzService,
     private entityService: EntityService,
     private artistService: ArtistService,
     private location: Location
@@ -27,6 +29,7 @@ export class ArtistComponent implements OnInit {
         let title = data.title;
       }
     );
+
     this.route.params.subscribe(
       params => {
         const id = params.id;
@@ -38,7 +41,7 @@ export class ArtistComponent implements OnInit {
     );
   }
 
-  import(): void {
+  importMbz(): void {
     this.route.params.subscribe(
       params => {
         const id = params.id;

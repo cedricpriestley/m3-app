@@ -29,6 +29,9 @@ import { SearchBoxComponent } from './components/search/search-box/search-box.co
 import { SearchResultComponent } from './components/search/search-result/search-result.component';
 import { ArtistReleasesComponent } from './components/lists/artist-releases/artist-releases.component';
 import { SearchComponent } from './search/search.component';
+import { ApolloModule, Apollo } from 'apollo-angular';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,9 @@ import { SearchComponent } from './search/search.component';
     ArtistReleaseGroupsComponent,
     ReleaseGroupsComponent,
     ReleaseComponent,
-    SearchComponent
+    SearchComponent,
+    ApolloModule,
+    HttpLinkModule
   ],
   imports: [
     BrowserModule,
@@ -64,9 +69,19 @@ import { SearchComponent } from './search/search.component';
     NgxJsonViewerModule,
     NgxPaginationModule,
     ReactiveFormsModule,
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(
+    apollo: Apollo,
+    httpLink: HttpLink
+  ) {
+    apollo.create({
+      link: httpLink.create({ uri: 'http://localhost:8000/graphql' }),
+      cache: new InMemoryCache()
+    });
+  }
+}

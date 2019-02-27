@@ -1,12 +1,22 @@
 <div *ngIf="entity">
-  <!--
   <div>
-    <button (click)="import()">import</button>
-    <button (click)="reset()">reset</button>
+    <!--
+      <button (click)="lookupMbz()">Lookup MusicBrainz</button>
+    -->
+    <button (click)="importMbz()">Import MusicBrainz</button>
+    <button (click)="fetchLFM()">Fetch LastFM</button>
+    <button (click)="saveLFM()">Save LastFM</button>
+    <button (click)="fetchCAA()">Fetch CoverArt Archive</button>
+    <button (click)="saveCAA()">Save CoverArt Archive</button>
+    <button (click)="lookup()">Lookup MongoDB</button>
+    <button (click)="reset()">Reset MongoDB</button>
   </div>
-  -->
   <h2>{{ entity.name }}</h2>
-  <div><img src="{{ entity.image_url }}" /></div>
+  <div>
+    <div *ngFor="let image_url of entity['images']">
+      <img src="{{ image_url }}" />
+    </div>
+  </div>
   <div>
     <h4>Similar Artists</h4>
     <div

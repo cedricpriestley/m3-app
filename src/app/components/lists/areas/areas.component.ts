@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Apollo } from 'apollo-angular';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { EntityService } from '../../../services/entity.service';
 import { AreaService } from '../../../services/area.service';
+import { Area, Query } from '../../../types';
+import gql from 'graphql-tag';
 
 @Component({
   selector: 'app-areas',
@@ -9,8 +14,8 @@ import { AreaService } from '../../../services/area.service';
 })
 export class AreasComponent {
 
-  entities: Object[];
   entityName = 'Area';
+  entities: Object[];
 
   p: number = 1;
   totalItems: number;
@@ -20,10 +25,32 @@ export class AreasComponent {
 
   constructor(
     private entityService: EntityService,
-    private areaService: AreaService) {
+    private areaService: AreaService,
+    private areas: Observable<Area[]>,
+    private apollo: Apollo
+  ) {
   }
 
   ngOnInit() {
+    this.areas = this.apollo.watchQuery<Query>({
+      query: gql`
+        query allAreas {
+            allAreas {
+            mbid
+            name
+            type
+            lastUpdated
+          }
+        }
+      `
+    })
+      .valueChanges
+      .pipe(
+        map(result => result.data.allAreas)
+      );
+  }
+
+  ngOnInit2() {
     //this.getCount();
     //this.getTop();
     //this.getPage(1);
