@@ -5,5 +5,5 @@ export type Area = {
   type: string;
 }
 export type Query = {
-  allAreas: Area[];
+  areas: Area[];
 }

@@ -12,7 +12,7 @@ import gql from 'graphql-tag';
   templateUrl: './areas.component.html',
   styleUrls: ['./areas.component.css']
 })
-export class AreasComponent {
+export class AreasComponent implements OnInit {
 
   entityName = 'Area';
   entities: Object[];
@@ -31,29 +31,28 @@ export class AreasComponent {
   ) {
   }
 
+  ngOnInit2() {
+  }
+
   ngOnInit() {
     this.areas = this.apollo.watchQuery<Query>({
       query: gql`
-        query allAreas {
-            allAreas {
+        query getAreas {
+          getAreas {
             mbid
             name
-            type
-            lastUpdated
           }
         }
       `
     })
       .valueChanges
       .pipe(
-        map(result => result.data.allAreas)
+        map(result => result.data.areas)
       );
-  }
 
-  ngOnInit2() {
-    //this.getCount();
+    this.getCount();
     //this.getTop();
-    //this.getPage(1);
+    this.getPage(1);
   }
 
   getPage(page: number): void {

@@ -58,8 +58,6 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
     ReleaseGroupsComponent,
     ReleaseComponent,
     SearchComponent,
-    ApolloModule,
-    HttpLinkModule
   ],
   imports: [
     BrowserModule,
@@ -69,7 +67,8 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
     NgxJsonViewerModule,
     NgxPaginationModule,
     ReactiveFormsModule,
-
+    ApolloModule,
+    HttpLinkModule
   ],
   providers: [],
   bootstrap: [AppComponent]

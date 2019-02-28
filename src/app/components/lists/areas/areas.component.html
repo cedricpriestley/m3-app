@@ -1,10 +1,8 @@
 <h2>{{ entityName}}</h2>
-<!--
 <div>
   <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
--->
 <ul>
   <li *ngFor="let entity of entities | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
     <a routerLink="/{{entityName | lowercase}}/{{ entity.id }}">

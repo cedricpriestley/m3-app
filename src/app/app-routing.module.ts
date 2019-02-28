@@ -22,6 +22,7 @@ const routes: Routes = [
     path: 'home', component: HomeComponent,
     runGuardsAndResolvers: 'always'
   },
+  { path: 'areas', component: AreasComponent, runGuardsAndResolvers: 'always' },
   { path: 'artist/:id', component: ArtistComponent, runGuardsAndResolvers: 'always' },
   { path: 'artist/:id/release-groups', component: ArtistReleaseGroupsComponent, runGuardsAndResolvers: 'always' },
   { path: 'release-group/:id', component: ReleaseGroupComponent, runGuardsAndResolvers: 'always' },
