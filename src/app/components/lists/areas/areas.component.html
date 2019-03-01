@@ -4,10 +4,10 @@
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
 <ul>
-  <li *ngFor="let entity of entities | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
+  <li *ngFor="let entity of areas | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
     <a routerLink="/{{entityName | lowercase}}/{{ entity.id }}">
       <span>{{ entity.name }}</span>
     </a>
   </li>
 </ul>
-<ngx-json-viewer [json]="entities" [expanded]="false"></ngx-json-viewer>
+<ngx-json-viewer [json]="areas" [expanded]="false"></ngx-json-viewer>

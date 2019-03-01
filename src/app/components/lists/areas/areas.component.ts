@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+//import 'rxjs/add/operator/map';
 import { EntityService } from '../../../services/entity.service';
 import { AreaService } from '../../../services/area.service';
-import { Area, Query } from '../../../types';
-import gql from 'graphql-tag';
+//import { Area, Query } from '../../../types';
+import { Apollo } from 'apollo-angular';
+import * as Query from '../../../global-query';
 
 @Component({
   selector: 'app-areas',
@@ -16,6 +17,7 @@ export class AreasComponent implements OnInit {
 
   entityName = 'Area';
   entities: Object[];
+  areas: Array<any> = [];
 
   p: number = 1;
   totalItems: number;
@@ -26,7 +28,6 @@ export class AreasComponent implements OnInit {
   constructor(
     private entityService: EntityService,
     private areaService: AreaService,
-    private areas: Observable<Area[]>,
     private apollo: Apollo
   ) {
   }
@@ -35,27 +36,37 @@ export class AreasComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.areas = this.apollo.watchQuery<Query>({
-      query: gql`
-        query getAreas {
-          getAreas {
-            mbid
-            name
-          }
-        }
-      `
-    })
-      .valueChanges
-      .pipe(
-        map(result => result.data.areas)
-      );
 
     this.getCount();
     //this.getTop();
     this.getPage(1);
   }
 
+  /**
+   * ----------------------------------------------------
+   * Get All Areas
+   * ----------------------------------------------------
+   * @method getPage
+   */
   getPage(page: number): void {
+    let offset = page * (this.itemsPerPage) - this.itemsPerPage;
+    this.apollo.watchQuery({
+      query: Query.getAreas,
+      variables: {
+        limit: this.itemsPerPage,
+        offset: offset
+      }
+    })
+    .valueChanges
+    .pipe(
+    map((result: any) => result.data.getAreas)
+    ).subscribe((data) => {
+      this.areas = data;
+    })
+  }
+
+
+  getPage2(page: number): void {
     this.loading = true;
     let offset = page * (this.itemsPerPage) - this.itemsPerPage;
     this.entityService.browseEntities(this.entityName, offset, this.itemsPerPage)
