@@ -3,21 +3,21 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 // import 'rxjs/add/operator/map';
 import { EntityService } from '../../../services/entity.service';
-import { AreaService } from '../../../services/area.service';
-// import { Area, Query } from '../../../types';
+import { ArtistService } from '../../../services/artist.service';
+// import { Artist, Query } from '../../../types';
 import { Apollo } from 'apollo-angular';
 import * as Query from '../../../global-query';
 
 @Component({
-  selector: 'app-areas',
-  templateUrl: './areas.component.html',
-  styleUrls: ['./areas.component.css']
+  selector: 'app-artists',
+  templateUrl: './artists.component.html',
+  styleUrls: ['./artists.component.css']
 })
-export class AreasComponent implements OnInit {
+export class ArtistsComponent implements OnInit {
 
-  entityName = 'Area';
+  entityName = 'Artist';
   entities: {}[];
-  areas: Array<any> = [];
+  artists: Array<any> = [];
 
   p = 1;
   totalItems = 0;
@@ -27,7 +27,7 @@ export class AreasComponent implements OnInit {
 
   constructor(
     private entityService: EntityService,
-    private areaService: AreaService,
+    private artistService: ArtistService,
     private apollo: Apollo
   ) {
   }
@@ -44,14 +44,14 @@ export class AreasComponent implements OnInit {
 
   /**
    * ----------------------------------------------------
-   * Get All Areas
+   * Get All Artists
    * ----------------------------------------------------
    * @method getPage
    */
   getPage(page: number): void {
     const offset = page * (this.itemsPerPage) - this.itemsPerPage;
     this.apollo.watchQuery({
-      query: Query.getAreas,
+      query: Query.getArtists,
       variables: {
         limit: this.itemsPerPage,
         offset
@@ -59,9 +59,9 @@ export class AreasComponent implements OnInit {
     })
       .valueChanges
       .pipe(
-        map((result: any) => result.data.getAreas)
+        map((result: any) => result.data.getArtists)
       ).subscribe((data) => {
-        this.areas = data;
+        this.artists = data;
       });
   }
 

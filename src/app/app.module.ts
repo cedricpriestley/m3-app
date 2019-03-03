@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ArtistComponent } from './components/entities/artist/artist.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { HomeComponent } from './components/home/home.component';
-import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { NgxJsonViewerModule }   from 'ngx-json-viewer';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AreasComponent } from './components/lists/areas/areas.component';
 import { AreaComponent } from './components/entities/area/area.component';
@@ -30,6 +30,7 @@ import { SearchResultComponent } from './components/search/search-result/search-
 import { ArtistReleasesComponent } from './components/lists/artist-releases/artist-releases.component';
 import { SearchComponent } from './search/search.component';
 import { GraphQLModule } from './graphql.module';
+import { ArtistsComponent } from './components/lists/artists/artists.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { GraphQLModule } from './graphql.module';
     ReleaseGroupsComponent,
     ReleaseComponent,
     SearchComponent,
+    ArtistsComponent,
   ],
   imports: [
     BrowserModule,

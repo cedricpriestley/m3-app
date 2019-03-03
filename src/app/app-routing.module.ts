@@ -4,10 +4,12 @@ import { HomeComponent } from './components/home/home.component';
 import { AreaComponent } from './components/entities/area/area.component';
 import { EventComponent } from './components/entities/event/event.component';
 import { LabelComponent } from './components/entities/label/label.component';
-import { PlaceComponent } from './components/entities/place/place.component'; import { ArtistComponent } from './components/entities/artist/artist.component';
+import { PlaceComponent } from './components/entities/place/place.component';
+import { ArtistComponent } from './components/entities/artist/artist.component';
 import { ReleaseComponent } from './components/entities/release/release.component';
 import { ReleaseGroupComponent } from './components/entities/release-group/release-group.component';
 import { AreasComponent } from './components/lists/areas/areas.component';
+import { ArtistsComponent } from './components/lists/artists/artists.component';
 import { ArtistReleaseGroupsComponent } from './components/lists/artist-release-groups/artist-release-groups.component';
 import { ArtistReleasesComponent } from './components/lists/artist-releases/artist-releases.component';
 import { ReleaseGroupReleasesComponent } from './components/lists/release-group-releases/release-group-releases.component';
@@ -23,6 +25,7 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always'
   },
   { path: 'areas', component: AreasComponent, runGuardsAndResolvers: 'always' },
+  { path: 'artists', component: ArtistsComponent, runGuardsAndResolvers: 'always' },
   { path: 'artist/:id', component: ArtistComponent, runGuardsAndResolvers: 'always' },
   { path: 'artist/:id/release-groups', component: ArtistReleaseGroupsComponent, runGuardsAndResolvers: 'always' },
   { path: 'release-group/:id', component: ReleaseGroupComponent, runGuardsAndResolvers: 'always' },

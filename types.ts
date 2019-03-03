@@ -1,19 +1,3 @@
-export type Area = {
-  mbid: string;
-  name: string;
-  lastUpdated: string;
-  type: string;
-}
-export type Query = {
-  areas: Area[];
-}
-
-type LifeSpan {
-  begin: String
-  end: String
-  ended: Boolean
-}
-
 type Area {
   _id: ID!
   mbid: String!
@@ -26,4 +10,14 @@ type Area {
   lifeSpan: LifeSpan
   slug: String!
   lastUpdated: String!
+}
+
+export type Query = {
+  areas: Area[];
+}
+
+type LifeSpan = {
+  begin: String
+  end: String
+  ended: Boolean
 }
