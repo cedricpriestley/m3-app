@@ -10,6 +10,8 @@ import { ReleaseComponent } from './components/entities/release/release.componen
 import { ReleaseGroupComponent } from './components/entities/release-group/release-group.component';
 import { AreasComponent } from './components/lists/areas/areas.component';
 import { ArtistsComponent } from './components/lists/artists/artists.component';
+import { ReleasesComponent } from './components/lists/releases/releases.component';
+import { ReleaseGroupsComponent } from './components/lists/release-groups/release-groups.component';
 import { ArtistReleaseGroupsComponent } from './components/lists/artist-release-groups/artist-release-groups.component';
 import { ArtistReleasesComponent } from './components/lists/artist-releases/artist-releases.component';
 import { ReleaseGroupReleasesComponent } from './components/lists/release-group-releases/release-group-releases.component';
@@ -26,6 +28,8 @@ const routes: Routes = [
   },
   { path: 'areas', component: AreasComponent, runGuardsAndResolvers: 'always' },
   { path: 'artists', component: ArtistsComponent, runGuardsAndResolvers: 'always' },
+  { path: 'releases', component: ReleasesComponent, runGuardsAndResolvers: 'always' },
+  { path: 'release-groups', component: ReleaseGroupsComponent, runGuardsAndResolvers: 'always' },
   { path: 'artist/:id', component: ArtistComponent, runGuardsAndResolvers: 'always' },
   { path: 'artist/:id/release-groups', component: ArtistReleaseGroupsComponent, runGuardsAndResolvers: 'always' },
   { path: 'release-group/:id', component: ReleaseGroupComponent, runGuardsAndResolvers: 'always' },

@@ -19,10 +19,17 @@ export class ArtistService {
     private http: HttpClient,
     private messageService: MessageService) { }
 
-  getTopArtists(): Observable<Object[]> {
-    // TODO: send the message _after_ fetching the artists
-    this.messageService.add('ArtistService: fetched top artists');
+  getTopArtists(): Observable<{}[]> {
     return of(ARTISTS);
+    this.messageService.add('ArtistService: fetched top artists');
+    const url = `http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=e1182eaac16ae88fec850af3a0e7ab19&format=json`
+
+    this.log(url);
+
+    return this.http.get<Object[]>(url).pipe(
+      map(res => res['artists']['artist']),
+      catchError(this.handleError<{}[]>('getTopArtists', []))
+    );
   }
 
   getArtist(id: string): Observable<Object> {

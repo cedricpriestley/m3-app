@@ -6,11 +6,11 @@
   </div>
   -->
   <h2>{{ entity.title }}</h2>
-  <div *ngIf="entity['artist-credit']">
+  <div *ngIf="entity['artist_credit']">
     <span> by </span>
-    <a routerLink="/artist/{{entity['artist-credit'][0].artist.id}}">
+    <a routerLink="/artist/{{entity['artist_credit'][0].artist.id}}">
       <div>
-        <h3>{{ entity['artist-credit'][0].name }}</h3>
+        <h3>{{ entity['artist_credit'][0].name }}</h3>
       </div>
     </a>
   </div>

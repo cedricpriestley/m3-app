@@ -52,7 +52,7 @@ export class ReleaseGroupReleasesComponent implements OnInit {
           this.totalItems = ret['release-count'];
           this.releases = ret['releases']
             //let media: Media = ret['media']
-            .filter(release => release.country == 'US')
+            //.filter(release => release.country == 'US')
             //.filter(release => release.status == 'Official')
             //.filter(release => release.media.format == 'CD')
             ;

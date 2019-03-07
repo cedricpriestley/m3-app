@@ -12,8 +12,9 @@ import { ArtistService } from '../../../services/artist.service';
 })
 export class ArtistComponent implements OnInit {
 
-  entity: Object;
-  type: string = 'artist';
+  entity: {};
+  entityName = 'Artist';
+  type = 'artist';
 
   constructor(
     private route: ActivatedRoute,
@@ -45,7 +46,7 @@ export class ArtistComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         const id = params.id;
-        this.entityService.import(id, this.type)
+        this.entityService.lookup(id, this.type)
           .subscribe(entity => {
             this.entity = entity;
           });

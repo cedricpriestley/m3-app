@@ -1,15 +1,13 @@
 <h2>{{ entityName}}</h2>
-<!--
 <div>
   <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
--->
 <ul>
-  <li *ngFor="let entity of entities | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
+  <li *ngFor="let entity of releaseGroups | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
     <a routerLink="/{{entityName | lowercase}}/{{ entity.id }}">
-      <span>{{ entity.name }}</span>
+      <span>{{ entity.title }}</span>
     </a>
+    <ngx-json-viewer [json]="entity" [expanded]="false"></ngx-json-viewer>
   </li>
 </ul>
-<ngx-json-viewer [json]="entities" [expanded]="false"></ngx-json-viewer>

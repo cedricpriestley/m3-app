@@ -9,24 +9,36 @@
     <button (click)="fetchCAA()">Fetch CoverArt Archive</button>
     <button (click)="saveCAA()">Save CoverArt Archive</button>
     <button (click)="lookup()">Lookup MongoDB</button>
-    <button (click)="reset()">Reset MongoDB</button>
+    <button (click)="reset()">Reset</button>
   </div>
   <h2>{{ entity.name }}</h2>
   <div>
-    <div *ngFor="let image_url of entity['images']">
-      <img src="{{ image_url }}" />
+    <div>
+      <a routerLink="/{{entityName | lowercase}}/{{ entity.id }}">
+        <div *ngFor="let image of entity['images']">
+
+          <div *ngIf="image['size'] == 'large'">
+            <img src="{{ image['url'] }}" />
+          </div>
+        </div>
+        <div><span>{{ entity.name }}</span></div>
+      </a>
     </div>
   </div>
   <div>
     <h4>Similar Artists</h4>
-    <div
-      *ngFor="let similarArtist of entity['similar_artists'] | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
-      <div>
-        <a routerLink="/artist/{{similarArtist.id}}">
-          <img width="75px" src="{{ similarArtist.image_url }}" />
-          <div>{{ similarArtist.name }}</div>
-        </a>
-      </div>
+    <div *ngFor="let similarArtist of entity['similar_artists'] | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
+        <div>
+            <a routerLink="/{{entityName | lowercase}}/{{ similarArtist.id }}">
+              <div *ngFor="let image of similarArtist['images']">
+
+                <div *ngIf="image['size'] == 'small'">
+                  <img src="{{ image['url'] }}" />
+                </div>
+              </div>
+              <div><span>{{ similarArtist.name }}</span></div>
+            </a>
+          </div>
     </div>
   </div>
   <div>
@@ -36,5 +48,5 @@
       </div>
     </a>
   </div>
+  <ngx-json-viewer [json]="entity" [expanded]="false"></ngx-json-viewer>
 </div>
-<ngx-json-viewer [json]="entity" [expanded]="false"></ngx-json-viewer>

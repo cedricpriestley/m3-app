@@ -31,6 +31,7 @@ import { ArtistReleasesComponent } from './components/lists/artist-releases/arti
 import { SearchComponent } from './search/search.component';
 import { GraphQLModule } from './graphql.module';
 import { ArtistsComponent } from './components/lists/artists/artists.component';
+import { ReleasesComponent } from './components/lists/releases/releases.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ArtistsComponent } from './components/lists/artists/artists.component';
     ReleaseComponent,
     SearchComponent,
     ArtistsComponent,
+    ReleasesComponent,
   ],
   imports: [
     BrowserModule,

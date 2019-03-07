@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   getTopArtists(): void {
     this.artistService.getTopArtists()
-      .subscribe(artists => this.artists = artists.slice(0, 5));
-      
+      .subscribe(artists => this.artists = artists.slice(0, 10));
+
   }
 }

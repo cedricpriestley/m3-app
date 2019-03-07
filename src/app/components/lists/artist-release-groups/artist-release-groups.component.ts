@@ -16,7 +16,7 @@ export class ArtistReleaseGroupsComponent implements OnInit {
   releaseGroups: Object[];
   p: number = 1;
   totalItems: number;
-  itemsPerPage: number = 100;
+  itemsPerPage: number = 50;
   loading: boolean;
 
   constructor(

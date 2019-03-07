@@ -4,22 +4,18 @@ const Schema = mongoose.Schema;
 
 const areaSchema = new Schema(
   {
-    typeId: {
-      type: Schema.Types.ObjectId,
-      ref: 'AreaType',
-      required: true
-    },
     type: { type: String },
-    tag: [
+    type_id: { type: String },
+    tags: [
       {
         name: { type: String, required: true },
         count: { type: Number, required: false }
       }
     ],
-    mbid: { type: String, required: true },
-    sortName: { type: String },
+    id: { type: String, required: true },
+    sort_name: { type: String },
     name: { type: String, required: true },
-    lifeSpan: {
+    life_span: {
       ended: { type: Boolean },
       begin: { type: String },
       end: { type: String }
@@ -29,44 +25,16 @@ const areaSchema = new Schema(
         begin: { type: String },
         type: { type: String },
         locale: { type: String },
-        typeId: { type: String, ref: 'AreaAliasType' },
+        type_id: { type: String },
         sortName: { type: String },
-        name: { type: Sting },
+        name: { type: String },
         end: { type: String },
         primary: { type: Boolean },
         ended: { type: Boolean }
       }
     ],
     disambiguation: { type: String },
-    lastUpdated: { type: Date, default: Date.now },
-  }
-);
-
-const areaTypeSchema = new Schema(
-  {
-    mbid: { type: String, required: true },
-    name: { type: String, required: true },
-    parent: {
-      type: Schema.Types.ObjectId,
-      ref: 'AreaType',
-    },
-    childOrder: { type: Integer },
-    description: { type: String },
-    lastUpdated: { type: Date, default: Date.now },
-  }
-);
-
-const areaAliasTypeSchema = new Schema(
-  {
-    mbid: { type: String, required: true },
-    name: { type: String, required: true },
-    parent: {
-      type: Schema.Types.ObjectId,
-      ref: 'AreaAliasType',
-    },
-    childOrder: { type: Integer },
-    description: { type: String },
-    lastUpdated: { type: Date, default: Date.now },
+    last_updated: { type: Date, default: Date.now },
   }
 );
 

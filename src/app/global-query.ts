@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 export const getAreas = gql`
   query {
   getAreas(limit: 25, offset: 0) {
+    id
     name
     type
   }
@@ -15,7 +16,37 @@ export const getArtists = gql`
   getArtists(limit: 25, offset: 0) {
     id
     name
-    type
+    images {
+      url
+      size
+    }
+  }
+}`;
+
+export const getLabels = gql`
+  query {
+  getLabels(limit: 25, offset: 0) {
+    id
+    name
+    country
+  }
+}`;
+
+export const getReleases = gql`
+  query {
+  getReleases(limit: 25, offset: 0) {
+    id
+    title
+    coverart_url
+  }
+}`;
+
+export const getReleaseGroups = gql`
+  query {
+  getReleaseGroups(limit: 25, offset: 0) {
+    id
+    title
+    releases
   }
 }`;
 

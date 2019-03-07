@@ -5,9 +5,8 @@
 	<pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
 <ul>
-	<li
-		*ngFor="let release of releases | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
+	<li *ngFor="let release of releases | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
 		<div><span></span><a routerLink="/release/{{release.id}}">{{release.title}}</a></div>
+		<ngx-json-viewer [json]="release" [expanded]="false"></ngx-json-viewer>
 	</li>
 </ul>
-<ngx-json-viewer [json]="releases" [expanded]="false"></ngx-json-viewer>

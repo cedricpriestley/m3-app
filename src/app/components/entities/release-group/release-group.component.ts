@@ -34,9 +34,9 @@ export class ReleaseGroupComponent implements OnInit {
           .subscribe(entity => {
             this.entity = entity;
             console.log(entity);
-            if (!entity) {
-              this.import();
-            }
+            //if (!entity) {
+              //this.import();
+            //}
           });
       },
     );

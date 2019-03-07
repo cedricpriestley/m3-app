@@ -8,6 +8,6 @@
     <a routerLink="/{{entityName | lowercase}}/{{ entity.id }}">
       <span>{{ entity.name }}</span>
     </a>
+    <ngx-json-viewer [json]="entity" [expanded]="false"></ngx-json-viewer>
   </li>
 </ul>
-<ngx-json-viewer [json]="areas" [expanded]="false"></ngx-json-viewer>

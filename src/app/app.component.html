@@ -5,6 +5,15 @@
 			<a routerLink="/home">Home</a>
 		</li>
 		<li>
+			<a routerLink="/artists">Artists</a>
+		</li>
+		<li>
+			<a routerLink="/releases">Albums</a>
+		</li>
+		<li>
+			<a routerLink="/recordings">Songs</a>
+		</li>
+		<li>
 			<a routerLink="/home">Contact</a>
 		</li>
 		<li>
@@ -25,8 +34,7 @@
 
 	<div class="row">
 		<div class="input-group input-group-lg col-sm-8 col-md-8">
-			<app-search-box (loading)="loading = $event" (artistResults)="updateArtistResults($event)"
-				(releaseResults)="updateReleaseResults($event)"></app-search-box>
+			<app-search-box (loading)="loading = $event" (artistResults)="updateArtistResults($event)" (releaseResults)="updateReleaseResults($event)"></app-search-box>
 		</div>
 	</div>
 	<div *ngIf="artistResults && artistResults.length > 0" class="row" style="margin-top:20px">

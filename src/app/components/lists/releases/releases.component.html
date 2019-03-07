@@ -4,16 +4,15 @@
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
 </div>
 <ul>
-  <li *ngFor="let entity of artists | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
+  <li *ngFor="let entity of releases | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
     <div>
       <a routerLink="/{{entityName | lowercase}}/{{ entity.id }}">
-        <div *ngFor="let image of entity['images']">
-
-          <div *ngIf="image['size'] == 'small'">
-            <img src="{{ image['url'] }}" />
-          </div>
+        <div>
+          <img width="75px" src="{{ entity.coverart_url }}" />
         </div>
-        <div><span>{{ entity.name }}</span></div>
+        <div>
+          <span>{{ entity.title }}</span>
+        </div>
       </a>
     </div>
     <ngx-json-viewer [json]="entity" [expanded]="false"></ngx-json-viewer>

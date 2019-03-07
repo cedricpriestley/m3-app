@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-// import 'rxjs/add/operator/map';
 import { EntityService } from '../../../services/entity.service';
-import { LabelService } from '../../../services/label.service';
+import { ReleaseService } from '../../../services/release.service';
 import { Apollo } from 'apollo-angular';
 import * as Query from '../../../global-query';
 
 @Component({
-  selector: 'app-labels',
-  templateUrl: './labels.component.html',
-  styleUrls: ['./labels.component.css']
+  selector: 'app-releases',
+  templateUrl: './releases.component.html',
+  styleUrls: ['./releases.component.css']
 })
-export class LabelsComponent implements OnInit {
+export class ReleasesComponent implements OnInit {
 
-  entityName = 'Label';
+  entityName = 'Release';
   entities: {}[];
-  labels: Array<any> = [];
+  releases: Array<any> = [];
 
   p = 1;
   totalItems = 0;
@@ -26,7 +25,6 @@ export class LabelsComponent implements OnInit {
 
   constructor(
     private entityService: EntityService,
-    private labelService: LabelService,
     private apollo: Apollo
   ) {
   }
@@ -43,14 +41,14 @@ export class LabelsComponent implements OnInit {
 
   /**
    * ----------------------------------------------------
-   * Get All Labels
+   * Get All Releases
    * ----------------------------------------------------
    * @method getPage
    */
   getPage(page: number): void {
     const offset = page * (this.itemsPerPage) - this.itemsPerPage;
     this.apollo.watchQuery({
-      query: Query.getLabels,
+      query: Query.getReleases,
       variables: {
         limit: this.itemsPerPage,
         offset
@@ -58,9 +56,9 @@ export class LabelsComponent implements OnInit {
     })
       .valueChanges
       .pipe(
-        map((result: any) => result.data.getLabels)
+        map((result: any) => result.data.getReleases)
       ).subscribe((data) => {
-        this.labels = data;
+        this.releases = data;
       });
   }
 
