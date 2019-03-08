@@ -21,5 +21,22 @@
       </div>
     </a>
   </div>
+  <div>
+    <h3>Releases</h3>
+    <div *ngFor="let release of entity['releases']">
+      <a routerLink="/release/{{ release.id }}">
+        <h3>{{ release.title }}
+          {{ (release.disambiguation) ? ' - ' + release.disambiguation : '' }}</h3>
+      </a>
+      <!--
+      <div *ngFor="let medium of release['media']">
+        <div *ngIf="release['media'].length > 1">
+          Disc {{ medium.position}} <strong>{{ medium.title || '' }}</strong>
+        </div>
+      </div>
+      <br />
+      -->
+    </div>
+  </div>
   <ngx-json-viewer [json]="entity" [expanded]="false"></ngx-json-viewer>
 </div>

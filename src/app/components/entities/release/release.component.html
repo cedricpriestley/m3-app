@@ -17,12 +17,19 @@
   <div>
     <img width="200px" src="{{ entity.coverart_url }}" />
   </div>
-  <ngx-json-viewer [json]="entity" [expanded]="false"></ngx-json-viewer>
-  <div *ngIf="entity">
-    <a routerLink="/release/{{entity.id}}/recordings">
-      <div>
-        <h4>View {{entity.title}} recordings</h4>
+  <div>
+    <div *ngFor="let media of entity['media']">
+      <h3>Disc {{ media.position}} - {{ media.title }}</h3>
+      <div *ngFor="let track of media['tracks']">
+        {{ track.position}}. <strong>{{ track.title || '' }}</strong>
       </div>
-    </a>
+      <br />
+    </div>
   </div>
+  <ngx-json-viewer [json]="entity" [expanded]="false"></ngx-json-viewer>
+  <a routerLink="/release/{{entity.id}}/recordings">
+    <div>
+      <h4>View {{entity.title}} recordings</h4>
+    </div>
+  </a>
 </div>

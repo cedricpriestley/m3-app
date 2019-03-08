@@ -4,7 +4,10 @@ import { Location } from '@angular/common';
 import { EntityService } from '../../../services/entity.service';
 import { MusicBrainzService } from '../../../services/music-brainz.service';
 import { ArtistService } from '../../../services/artist.service';
-
+//artist's upcoming events
+//https://api.songkick.com/api/3.0/artists/mbid:650e7db6-b795-4eb5-a702-5ea2fc46c848/calendar.json?apikey=GD60kmKf1lgId3wO
+//venue's upcoming events
+//https://api.songkick.com/api/3.0/venues/3410514/calendar.xml?apikey=GD60kmKf1lgId3wO
 @Component({
   selector: 'app-artist',
   templateUrl: './artist.component.html',
