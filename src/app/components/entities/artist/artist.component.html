@@ -27,13 +27,11 @@
   </div>
   <div>
     <h3>Release Groups</h3>
-    <div *ngFor="let release of entity['releases']">
-      <div *ngIf="release['media'].length == 1">
-        <a routerLink="/release/{{ release.id }}">
-          <h3>{{ release.title }}
-            {{ (release.disambiguation) ? ' - ' + release.disambiguation : '' }}</h3>
-        </a>
-      </div>
+    <div *ngFor="let releaseGroup of entity['release_groups']">
+      <a routerLink="/release-group/{{ releaseGroup.id }}">
+        <h3>{{ releaseGroup.title }}
+          {{ (releaseGroup.disambiguation) ? ' - ' + releaseGroup.disambiguation : '' }}</h3>
+      </a>
     </div>
   </div>
   <div>
@@ -52,6 +50,7 @@
       </div>
     </div>
   </div>
+  <!--
   <div>
     <a routerLink="/artist/{{entity.id}}/release-groups">
       <div>
@@ -59,5 +58,6 @@
       </div>
     </a>
   </div>
+  -->
   <ngx-json-viewer [json]="entity" [expanded]="false"></ngx-json-viewer>
 </div>

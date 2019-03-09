@@ -6,13 +6,14 @@
   </div>
   -->
   <h2>{{ entity.title }}</h2>
-  <div *ngIf="entity['artist_credit']">
+  <div *ngIf="entity.artist_credit">
     <span> by </span>
-    <a routerLink="/artist/{{entity['artist_credit'][0].artist.id}}">
-      <div>
-        <h3>{{ entity['artist_credit'][0].name }}</h3>
-      </div>
-    </a>
+    <span *ngFor="let artist of entity.artist_credit">
+      <a routerLink="/artist/{{artist.artist.id}}">
+        <strong>{{ artist.artist.name }}</strong>
+      </a>
+      {{ artist.joinphrase }}
+    </span>
   </div>
   <div>
     <a routerLink="/release-group/{{entity.id}}/releases">
