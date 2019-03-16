@@ -4,6 +4,9 @@ import { Location } from '@angular/common';
 import { ArtistService } from '../../../services/artist.service';
 import { ReleaseGroupService } from '../../../services/release-group.service';
 import { FormsModule } from '@angular/forms';
+import { map } from 'rxjs/operators';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
 
 @Component({
   selector: 'app-artist-release-groups',
@@ -23,13 +26,77 @@ export class ArtistReleaseGroupsComponent implements OnInit {
     private route: ActivatedRoute,
     private releaseGroupService: ReleaseGroupService,
     private artistService: ArtistService,
-    private location: Location
+    private location: Location,
+    private apollo: Apollo
   ) {
   }
 
   ngOnInit() {
-    this.getArtist();
+    //this.getArtist();
     this.getPage(1);
+    return;
+    this.route.params.subscribe(
+      params => {
+        const id = params.id;
+        this.apollo
+          .watchQuery({
+            query: gql`
+            query {
+              result: browse {
+                releaseGroups(artist:"${id}") {
+                  totalCount
+                  releaseGroups: nodes {
+                    mbid
+                    title
+                    primaryType
+                    secondaryTypes
+                    firstReleaseDate
+                    rating {
+                      voteCount
+                      value
+                    }
+                    tags {
+                      tags: nodes {
+                        name
+                        count
+                      }
+                    }
+                    artistCredits {
+                      artist {
+                        mbid
+                      }
+                      name
+                      joinPhrase
+                    }
+                    discogs {
+                      genres
+                      styles
+                      url
+                      videos {
+                        title
+                        duration
+                        description
+                        url
+                        embed
+                      }
+                    }
+                  }
+                }
+              }
+            }
+      `,
+          })
+          .valueChanges
+          .pipe(
+            map((result: any) => result)
+          )
+          .subscribe(result => {
+            alert('hello');
+            this.releaseGroups = result.data.result.releaseGroups.releaseGroups;
+            //this.loading = result.loading;
+            //this.error = result.error;
+          });
+      });
   }
 
   getArtist(): void {

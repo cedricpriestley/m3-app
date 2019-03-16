@@ -50,7 +50,7 @@ export class ArtistsComponent implements OnInit {
    */
   getPage(page: number): void {
     const offset = page * (this.itemsPerPage) - this.itemsPerPage;
-    this.apollo.watchQuery({
+    this.apollo.use('mutations').watchQuery({
       query: Query.getArtists,
       variables: {
         limit: this.itemsPerPage,

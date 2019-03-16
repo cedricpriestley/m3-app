@@ -7,7 +7,7 @@
   <ul>
     <li
       *ngFor="let releaseGroup of releaseGroups | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
-      <div><a routerLink="/release-group/{{releaseGroup.id}}">{{releaseGroup.title}}</a></div>
+      <div><a routerLink="/release-group/{{releaseGroup.mbid}}">{{releaseGroup.title}}</a></div>
       <ngx-json-viewer [json]="releaseGroup" [expanded]="false"></ngx-json-viewer>
     </li>
   </ul>

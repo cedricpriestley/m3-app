@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 export const getAreas = gql`
   query {
   getAreas(limit: 50, offset: 0) {
-    id
+    mbid
     name
     type
   }
@@ -14,11 +14,11 @@ export const getAreas = gql`
 export const getArtists = gql`
   query {
   getArtists(limit: 50, offset: 0) {
-    id
+    mbid
     name
-    images {
-      url
-      size
+    lastFM {
+      smallImage
+      mediumImage
     }
   }
 }`;
@@ -49,6 +49,17 @@ export const getReleaseGroups = gql`
     releases
   }
 }`;
+
+export const getArtist = gql`
+query {
+  lookup {
+    artist(mbid: "f27ec8db-af05-4f36-916e-3d57f91ecf5e") {
+      name
+      gender
+    }
+  }
+}
+`;
 
 export const getArea = gql`
   query {

@@ -6,6 +6,8 @@ import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { catchError, map, tap } from 'rxjs/operators';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +17,555 @@ export class ArtistService {
   private artistsUrl = 'http://localhost:8000/api/artist';  // URL to web api
   private ret = null;
 
+  lookupMutation = gql`
+  query getArtist($mbid: String!) {
+    getArtist(mbid: $mbid) {
+      _id
+      mbid
+      name
+      sortName
+      disambiguation
+      country
+      type
+      typeID
+      rating {
+        voteCount
+        value
+      }
+      gender
+      genderID
+      lifeSpan {
+        begin
+        end
+        ended
+      }
+      area {
+        mbid
+        name
+        sortName
+        disambiguation
+      }
+      beginArea {
+        mbid
+        name
+        sortName
+        disambiguation
+      }
+      endArea {
+        mbid
+        name
+        sortName
+        disambiguation
+      }
+      relationships {
+        artists {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+        events {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+        instruments {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+        labels {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+        places {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+        recordings {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              title
+            }
+            attributes
+          }
+        }
+        releases {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              title
+            }
+            attributes
+          }
+        }
+        releaseGroups {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              title
+            }
+            attributes
+          }
+        }
+        works {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              title
+            }
+            attributes
+          }
+        }
+        urls {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              resource
+            }
+            attributes
+          }
+        }
+        series {
+          nodes {
+            type
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+      }
+      aliases {
+        name
+        type
+      }
+      tags {
+        tags {
+          name
+          count
+        }
+      }
+      lastFM {
+        image
+        similarArtists {
+          similarArtists {
+            mbid
+            name
+            image
+          }
+        }
+        url
+        tags {
+          tags {
+            name
+            url
+          }
+        }
+        biography {
+          summaryHTML
+        }
+      }
+    }
+  }`;
+
+  saveMutation = gql`
+  mutation saveArtist($entity: String!) {
+    saveArtist(data: $entity) {
+      _id
+      mbid
+      name
+      sortName
+      disambiguation
+      country
+      type
+      typeID
+      rating {
+        voteCount
+        value
+      }
+      gender
+      genderID
+      lifeSpan {
+        begin
+        end
+        ended
+      }
+      area {
+        mbid
+        name
+        sortName
+        disambiguation
+      }
+      beginArea {
+        mbid
+        name
+        sortName
+        disambiguation
+      }
+      endArea {
+        mbid
+        name
+        sortName
+        disambiguation
+      }
+      relationships {
+        artists {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+        events {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+        instruments {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+        labels {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+        places {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+        recordings {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              title
+            }
+            attributes
+          }
+        }
+        releases {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              title
+            }
+            attributes
+          }
+        }
+        releaseGroups {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+        works {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+        urls {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+        series {
+          nodes {
+            type
+            targetType
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              mbid
+              name
+            }
+            attributes
+          }
+        }
+      }
+      aliases {
+        name
+        type
+      }
+      tags {
+        tags {
+          name
+          count
+        }
+      }
+      lastFM {
+        smallImage
+        mediumImage
+        largeImage
+        extraLargeImage
+        megaImage
+        similarArtists {
+          similarArtists {
+            mbid
+            name
+            image
+          }
+        }
+        url
+        tags {
+          tags {
+            name
+            url
+          }
+        }
+        biography {
+          summaryHTML
+        }
+      }
+    }
+  }`;
+
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private apollo: Apollo) { }
+
+  lookupArtist(mbid) {
+    return this.apollo.use("mutations").mutate({
+      mutation: this.lookupMutation,
+      variables: {
+        mbid: mbid
+      }
+    });
+  }
+
+  saveArtist(entity) {
+    return this.apollo.use("mutations").mutate({
+      mutation: this.saveMutation,
+      variables: {
+        entity: entity
+      }
+    });
+  }
 
   getTopArtists(): Observable<{}[]> {
     return of(ARTISTS);

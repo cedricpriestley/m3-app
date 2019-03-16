@@ -1,8 +1,7 @@
 <div *ngIf="entity">
-  <div>
-    <!--
+  <!--
+    <div>
       <button (click)="lookupMbz()">Lookup MusicBrainz</button>
-    -->
     <button (click)="importMbz()">Import MusicBrainz</button>
     <button (click)="fetchLFM()">Fetch LastFM</button>
     <button (click)="saveLFM()">Save LastFM</button>
@@ -11,7 +10,19 @@
     <button (click)="lookup()">Lookup MongoDB</button>
     <button (click)="reset()">Reset</button>
   </div>
+-->
   <h2>{{ entity.name }}</h2>
+  <div *ngIf="entity.lastFM">
+    <div *ngIf="entity.lastFM.megaImage">
+      <img src="{{ entity.lastFM.megaImage }}" />
+    </div>
+  </div>
+  <div *ngIf="entity.lastFM">
+    <div *ngIf="entity.lastFM.biography">
+      <div>{{ entity.lastFM.biography.summaryHTML }}</div>
+    </div>
+  </div>
+  <!--
   <div>
     <div>
       <a routerLink="/{{entityName | lowercase}}/{{ entity.id }}">
@@ -34,30 +45,28 @@
       </a>
     </div>
   </div>
+  -->
   <div>
     <h4>Similar Artists</h4>
-    <div *ngFor="let similarArtist of entity['similar_artists'] | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
-      <div>
-        <a routerLink="/{{entityName | lowercase}}/{{ similarArtist.id }}">
-          <div *ngFor="let image of similarArtist['images']">
-
-            <div *ngIf="image['size'] == 'small'">
-              <img src="{{ image['url'] }}" />
+    <div *ngIf="entity.lastFM">
+      <div *ngFor="let similarArtist of entity.lastFM.similarArtists.similarArtists | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
+        <div>
+          <a routerLink="/artist/{{ similarArtist.mbid || 'no mbid' }}">
+            <div *ngIf="similarArtist.image">
+              <img width="65px" src="{{ similarArtist.image }}" />
             </div>
-          </div>
-          <div><span>{{ similarArtist.name }}</span></div>
-        </a>
+            <div><span>{{ similarArtist.name }}</span></div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
-  <!--
   <div>
-    <a routerLink="/artist/{{entity.id}}/release-groups">
+    <a routerLink="/artist/{{entity.mbid}}/release-groups">
       <div>
         <h4>Release Groups</h4>
       </div>
     </a>
   </div>
-  -->
-  <ngx-json-viewer [json]="entity" [expanded]="false"></ngx-json-viewer>
+  <ngx-json-viewer [json]="entity" [expanded]="false"></ngx-json-viewer>-->
 </div>

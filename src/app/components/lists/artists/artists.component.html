@@ -1,4 +1,4 @@
-<h2>{{ entityName}}</h2>
+<h2>Artists</h2>
 <div>
   <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
   <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
@@ -6,12 +6,14 @@
 <ul>
   <li *ngFor="let entity of artists | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalItems }">
     <div>
-      <a routerLink="/{{entityName | lowercase}}/{{ entity.id }}">
-        <div *ngFor="let image of entity['images']">
-
+      <a routerLink="/artist/{{ entity.mbid }}">
+        <!-- <div *ngFor="let image of entity['images']">
           <div *ngIf="image['size'] == 'small'">
             <img src="{{ image['url'] }}" />
           </div>
+        </div> -->
+        <div *ngIf="entity.lastFM">
+          <img src="{{ entity.lastFM.mediumImage }}" />
         </div>
         <div><span>{{ entity.name }}</span></div>
       </a>
