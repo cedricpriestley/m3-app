@@ -305,194 +305,58 @@ export class ArtistService {
         name
         sortName
         disambiguation
+        area {
+          mbid
+          name
+          area {
+            mbid
+            name
+            area {
+              mbid
+              name
+            }
+          }
+        }
       }
       beginArea {
         mbid
         name
         sortName
         disambiguation
+        area {
+          mbid
+          name
+          area {
+            mbid
+            name
+            area {
+              mbid
+              name
+            }
+          }
+        }
       }
       endArea {
         mbid
         name
         sortName
         disambiguation
+        area {
+          mbid
+          name
+          area {
+            mbid
+            name
+            area {
+              mbid
+              name
+            }
+          }
+        }
       }
       relationships {
         artists {
-          nodes {
-            type
-            targetType
-            direction
-            begin
-            end
-            ended
-            targetCredit
-            sourceCredit
-            target {
-              mbid
-              name
-            }
-            attributes
-          }
-        }
-        events {
-          nodes {
-            type
-            targetType
-            direction
-            begin
-            end
-            ended
-            targetCredit
-            sourceCredit
-            target {
-              mbid
-              name
-            }
-            attributes
-          }
-        }
-        instruments {
-          nodes {
-            type
-            targetType
-            direction
-            begin
-            end
-            ended
-            targetCredit
-            sourceCredit
-            target {
-              mbid
-              name
-            }
-            attributes
-          }
-        }
-        labels {
-          nodes {
-            type
-            targetType
-            direction
-            begin
-            end
-            ended
-            targetCredit
-            sourceCredit
-            target {
-              mbid
-              name
-            }
-            attributes
-          }
-        }
-        places {
-          nodes {
-            type
-            targetType
-            direction
-            begin
-            end
-            ended
-            targetCredit
-            sourceCredit
-            target {
-              mbid
-              name
-            }
-            attributes
-          }
-        }
-        recordings {
-          nodes {
-            type
-            targetType
-            direction
-            begin
-            end
-            ended
-            targetCredit
-            sourceCredit
-            target {
-              mbid
-              title
-            }
-            attributes
-          }
-        }
-        releases {
-          nodes {
-            type
-            targetType
-            direction
-            begin
-            end
-            ended
-            targetCredit
-            sourceCredit
-            target {
-              mbid
-              title
-            }
-            attributes
-          }
-        }
-        releaseGroups {
-          nodes {
-            type
-            targetType
-            direction
-            begin
-            end
-            ended
-            targetCredit
-            sourceCredit
-            target {
-              mbid
-              name
-            }
-            attributes
-          }
-        }
-        works {
-          nodes {
-            type
-            targetType
-            direction
-            begin
-            end
-            ended
-            targetCredit
-            sourceCredit
-            target {
-              mbid
-              name
-            }
-            attributes
-          }
-        }
-        urls {
-          nodes {
-            type
-            targetType
-            direction
-            begin
-            end
-            ended
-            targetCredit
-            sourceCredit
-            target {
-              mbid
-              name
-            }
-            attributes
-          }
-        }
-        series {
-          nodes {
-            type
-            targetType
+          teacher {
             direction
             begin
             end
@@ -512,10 +376,8 @@ export class ArtistService {
         type
       }
       tags {
-        tags {
-          name
-          count
-        }
+        name
+        count
       }
       lastFM {
         smallImage
@@ -524,18 +386,14 @@ export class ArtistService {
         extraLargeImage
         megaImage
         similarArtists {
-          similarArtists {
-            mbid
-            name
-            image
-          }
+          mbid
+          name
+          image
         }
         url
-        tags {
-          tags {
-            name
-            url
-          }
+        topTags {
+          name
+          url
         }
         biography {
           summaryHTML

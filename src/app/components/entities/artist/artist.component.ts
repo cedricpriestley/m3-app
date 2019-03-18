@@ -59,7 +59,6 @@ export class ArtistComponent implements OnInit {
         query: gql`
           query {
             getArtist(mbid: "${id}") {
-              _id
               mbid
               name
               sortName
@@ -83,13 +82,15 @@ export class ArtistComponent implements OnInit {
                 name
                 sortName
                 disambiguation
-                partOfArea {
-                  areas {
-                    nodes {
-                      target {
-                        mbid
-                        name
-                      }
+                area {
+                  mbid
+                  name
+                  area {
+                    mbid
+                    name
+                    area {
+                      mbid
+                      name
                     }
                   }
                 }
@@ -99,187 +100,40 @@ export class ArtistComponent implements OnInit {
                 name
                 sortName
                 disambiguation
+                area {
+                  mbid
+                  name
+                  area {
+                    mbid
+                    name
+                    area {
+                      mbid
+                      name
+                    }
+                  }
+                }
               }
               endArea {
                 mbid
                 name
                 sortName
                 disambiguation
+                area {
+                  mbid
+                  name
+                  area {
+                    mbid
+                    name
+                    area {
+                      mbid
+                      name
+                    }
+                  }
+                }
               }
               relationships {
                 artists {
-                  nodes {
-                    type
-                    targetType
-                    direction
-                    begin
-                    end
-                    ended
-                    targetCredit
-                    sourceCredit
-                    target {
-                      mbid
-                      name
-                    }
-                    attributes
-                  }
-                }
-                events {
-                  nodes {
-                    type
-                    targetType
-                    direction
-                    begin
-                    end
-                    ended
-                    targetCredit
-                    sourceCredit
-                    target {
-                      mbid
-                      name
-                    }
-                    attributes
-                  }
-                }
-                instruments {
-                  nodes {
-                    type
-                    targetType
-                    direction
-                    begin
-                    end
-                    ended
-                    targetCredit
-                    sourceCredit
-                    target {
-                      mbid
-                      name
-                    }
-                    attributes
-                  }
-                }
-                labels {
-                  nodes {
-                    type
-                    targetType
-                    direction
-                    begin
-                    end
-                    ended
-                    targetCredit
-                    sourceCredit
-                    target {
-                      mbid
-                      name
-                    }
-                    attributes
-                  }
-                }
-                places {
-                  nodes {
-                    type
-                    targetType
-                    direction
-                    begin
-                    end
-                    ended
-                    targetCredit
-                    sourceCredit
-                    target {
-                      mbid
-                      name
-                    }
-                    attributes
-                  }
-                }
-                recordings {
-                  nodes {
-                    type
-                    targetType
-                    direction
-                    begin
-                    end
-                    ended
-                    targetCredit
-                    sourceCredit
-                    target {
-                      mbid
-                      title
-                    }
-                    attributes
-                  }
-                }
-                releases {
-                  nodes {
-                    type
-                    targetType
-                    direction
-                    begin
-                    end
-                    ended
-                    targetCredit
-                    sourceCredit
-                    target {
-                      mbid
-                      title
-                    }
-                    attributes
-                  }
-                }
-                releaseGroups {
-                  nodes {
-                    type
-                    targetType
-                    direction
-                    begin
-                    end
-                    ended
-                    targetCredit
-                    sourceCredit
-                    target {
-                      mbid
-                      title
-                    }
-                    attributes
-                  }
-                }
-                works {
-                  nodes {
-                    type
-                    targetType
-                    direction
-                    begin
-                    end
-                    ended
-                    targetCredit
-                    sourceCredit
-                    target {
-                      mbid
-                      title
-                    }
-                    attributes
-                  }
-                }
-                urls {
-                  nodes {
-                    type
-                    targetType
-                    direction
-                    begin
-                    end
-                    ended
-                    targetCredit
-                    sourceCredit
-                    target {
-                      mbid
-                      resource
-                    }
-                    attributes
-                  }
-                }
-                series {
-                  nodes {
-                    type
+                  teacher {
                     direction
                     begin
                     end
@@ -299,10 +153,8 @@ export class ArtistComponent implements OnInit {
                 type
               }
               tags {
-                tags {
-                  name
-                  count
-                }
+                name
+                count
               }
               lastFM {
                 smallImage
@@ -311,18 +163,14 @@ export class ArtistComponent implements OnInit {
                 extraLargeImage
                 megaImage
                 similarArtists {
-                  similarArtists {
-                    mbid
-                    name
-                    image
-                  }
+                  mbid
+                  name
+                  image
                 }
                 url
-                tags {
-                  tags {
-                    name
-                    url
-                  }
+                topTags {
+                  name
+                  url
                 }
                 biography {
                   summaryHTML
@@ -360,451 +208,458 @@ export class ArtistComponent implements OnInit {
       .watchQuery({
         query: gql`
  query {
-    result: lookup {
-      artist(mbid: "${id}") {
+  lookup {
+    artist(mbid: "650e7db6-b795-4eb5-a702-5ea2fc46c848") {
+      mbid
+      name
+      sortName
+      disambiguation
+      country
+      type
+      typeID
+      rating {
+        voteCount
+        value
+      }
+      gender
+      genderID
+      lifeSpan {
+        begin
+        end
+        ended
+      }
+      area {
         mbid
         name
         sortName
         disambiguation
-        country
-        type
-        typeID
-        rating {
-          voteCount
-          value
-        }
-        gender
-        genderID
-        lifeSpan {
-          begin
-          end
-          ended
-        }
-        area {
-          mbid
-          name
-          sortName
-          disambiguation
-          ... on Area {
-            partofArea: relationships {
-              areas(type: "part of", direction: "backward") {
-                nodes {
-                  target {
-                    ... on Area {
-                      mbid
-                      name
-                      ...partOfArea
-                    }
+        ... on Area {
+          relationships {
+            areas(type: "part of", direction: "backward") {
+              nodes {
+                target {
+                  ... on Area {
+                    mbid
+                    name
+                    ...partOfArea
                   }
                 }
               }
-              placeholder: series {
-                nodes {
-                  type
-                }
+            }
+            placeholder: series {
+              nodes {
+                type
               }
             }
           }
         }
-        beginArea {
-          mbid
-          name
-          sortName
-          disambiguation
-          ... on Area {
-            partofArea: relationships {
-              areas(type: "part of", direction: "backward") {
-                nodes {
-                  target {
-                    ... on Area {
-                      mbid
-                      name
-                      ...partOfArea
-                    }
+      }
+      beginArea {
+        mbid
+        name
+        sortName
+        disambiguation
+        ... on Area {
+          relationships {
+            areas(type: "part of", direction: "backward") {
+              nodes {
+                target {
+                  ... on Area {
+                    mbid
+                    name
+                    ...partOfArea
                   }
                 }
               }
-              placeholder: series {
-                nodes {
-                  type
-                }
+            }
+            placeholder: series {
+              nodes {
+                type
               }
             }
           }
         }
-        endArea {
-          mbid
-          name
-          sortName
-          disambiguation
-          ... on Area {
-            partofArea: relationships {
-              areas(type: "part of", direction: "backward") {
-                nodes {
-                  target {
-                    ... on Area {
-                      mbid
-                      name
-                      ...partOfArea
-                    }
+      }
+      endArea {
+        mbid
+        name
+        sortName
+        disambiguation
+        ... on Area {
+          relationships {
+            areas(type: "part of", direction: "backward") {
+              nodes {
+                target {
+                  ... on Area {
+                    mbid
+                    name
+                    ...partOfArea
                   }
                 }
               }
-              placeholder: series {
-                nodes {
-                  type
-                }
+            }
+            placeholder: series {
+              nodes {
+                type
               }
             }
           }
         }
-        relationships {
-          artists {
-            nodes {
-              type
-              targetType
-              direction
-              begin
-              end
-              ended
-              targetCredit
-              sourceCredit
-              target {
-                ... on Artist {
-                  mbid
-                  name
-                }
+      }
+      relationships {
+        areas {
+          nodes {
+            type
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              ... on Area {
+                mbid
+                name
               }
-              attributes
             }
-          }
-          events {
-            nodes {
-              type
-              targetType
-              direction
-              begin
-              end
-              ended
-              targetCredit
-              sourceCredit
-              target {
-                ... on Event {
-                  mbid
-                  name
-                }
-              }
-              attributes
-            }
-          }
-          instruments {
-            nodes {
-              type
-              targetType
-              direction
-              begin
-              end
-              ended
-              targetCredit
-              sourceCredit
-              target {
-                ... on Instrument {
-                  mbid
-                  name
-                }
-              }
-              attributes
-            }
-          }
-          labels {
-            nodes {
-              type
-              targetType
-              direction
-              begin
-              end
-              ended
-              targetCredit
-              sourceCredit
-              target {
-                ... on Label {
-                  mbid
-                  name
-                }
-              }
-              attributes
-            }
-          }
-          places {
-            nodes {
-              type
-              targetType
-              direction
-              begin
-              end
-              ended
-              targetCredit
-              sourceCredit
-              target {
-                ... on Place {
-                  mbid
-                  name
-                }
-              }
-              attributes
-            }
-          }
-          recordings {
-            nodes {
-              type
-              targetType
-              direction
-              begin
-              end
-              ended
-              targetCredit
-              sourceCredit
-              target {
-                ... on Recording {
-                  mbid
-                  title
-                }
-              }
-              attributes
-            }
-          }
-          releases {
-            nodes {
-              type
-              targetType
-              direction
-              begin
-              end
-              ended
-              targetCredit
-              sourceCredit
-              target {
-                ... on Release {
-                  mbid
-                  title
-                }
-              }
-              attributes
-            }
-          }
-          releaseGroups {
-            nodes {
-              type
-              targetType
-              direction
-              begin
-              end
-              ended
-              targetCredit
-              sourceCredit
-              target {
-                ... on ReleaseGroup {
-                  mbid
-                  title
-                }
-              }
-              attributes
-            }
-          }
-          series {
-            nodes {
-              type
-              targetType
-              direction
-              begin
-              end
-              ended
-              targetCredit
-              sourceCredit
-              target {
-                ... on Series {
-                  mbid
-                  name
-                }
-              }
-              attributes
-            }
-          }
-          works {
-            nodes {
-              type
-              targetType
-              direction
-              begin
-              end
-              ended
-              targetCredit
-              sourceCredit
-              target {
-                ... on Work {
-                  mbid
-                  title
-                }
-              }
-              attributes
-            }
-          }
-          urls {
-            nodes {
-              type
-              targetType
-              direction
-              begin
-              end
-              ended
-              targetCredit
-              sourceCredit
-              target {
-                ... on URL {
-                  mbid
-                  resource
-                }
-              }
-              attributes
-            }
-          }
-          placeholder: series {
-            nodes {
-              type
-            }
+            attributes
           }
         }
-        aliases {
-          name
-          type
-        }
-        tags {
-          tags: nodes {
-            name
-            count
-          }
-        }
-        lastFM {
-          smallImage: image(size: SMALL)
-          mediumImage: image(size: MEDIUM)
-          largeImage: image(size: LARGE)
-          extraLargeImage: image(size: EXTRALARGE)
-          megaImage: image(size: MEGA)
-          similarArtists {
-            similarArtists: nodes {
-              mbid
-              name
-              image(size: MEGA)
+        artists {
+          nodes {
+            type
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              ... on Artist {
+                mbid
+                name
+              }
             }
-          }
-          url
-          tags: topTags {
-            tags: nodes {
-              name
-              url
-            }
-          }
-          biography {
-            summaryHTML
+            attributes
           }
         }
-        discogs {
-          members {
-            name
+        events {
+          nodes {
+            type
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              ... on Event {
+                mbid
+                name
+              }
+            }
+            attributes
           }
-          profile
-          images {
-            url
+        }
+        instruments {
+          nodes {
+            type
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              ... on Instrument {
+                mbid
+                name
+              }
+            }
+            attributes
+          }
+        }
+        labels {
+          nodes {
+            type
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              ... on Label {
+                mbid
+                name
+              }
+            }
+            attributes
+          }
+        }
+        places {
+          nodes {
+            type
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              ... on Place {
+                mbid
+                name
+              }
+            }
+            attributes
+          }
+        }
+        recordings {
+          nodes {
+            type
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              ... on Recording {
+                mbid
+                title
+              }
+            }
+            attributes
+          }
+        }
+        releases {
+          nodes {
+            type
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              ... on Release {
+                mbid
+                title
+              }
+            }
+            attributes
+          }
+        }
+        releaseGroups {
+          nodes {
+            type
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              ... on ReleaseGroup {
+                mbid
+                title
+              }
+            }
+            attributes
+          }
+        }
+        series {
+          nodes {
+            type
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              ... on Series {
+                mbid
+                name
+              }
+            }
+            attributes
+          }
+        }
+        works {
+          nodes {
+            type
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              ... on Work {
+                mbid
+                title
+              }
+            }
+            attributes
+          }
+        }
+        urls {
+          nodes {
+            type
+            direction
+            begin
+            end
+            ended
+            targetCredit
+            sourceCredit
+            target {
+              ... on URL {
+                mbid
+                resource
+              }
+            }
+            attributes
+          }
+        }
+        placeholder: series {
+          nodes {
             type
           }
-          urls
         }
+      }
+      aliases {
+        name
+        type
+      }
+      tags {
+        nodes {
+          name
+          count
+        }
+      }
+      lastFM {
+        smallImage: image(size: SMALL)
+        mediumImage: image(size: MEDIUM)
+        largeImage: image(size: LARGE)
+        extraLargeImage: image(size: EXTRALARGE)
+        megaImage: image(size: MEGA)
+        similarArtists {
+          nodes {
+            mbid
+            name
+            image(size: MEGA)
+          }
+        }
+        url
+        topTags {
+          nodes {
+            name
+            url
+          }
+        }
+        biography {
+          summaryHTML
+        }
+      }
+      discogs {
+        members {
+          name
+        }
+        profile
+        images {
+          url
+          type
+        }
+        urls
       }
     }
   }
+}
 
-  fragment partOfArea on Area {
-    partofArea: relationships {
-      areas(type: "part of", direction: "backward") {
-        nodes {
-          target {
-            ... on Area {
-              mbid
-              name
-              ...partOfArea2
-            }
+fragment partOfArea on Area {
+  relationships {
+    areas(type: "part of", direction: "backward") {
+      nodes {
+        target {
+          ... on Area {
+            mbid
+            name
+            ...partOfArea2
           }
         }
       }
-      placeholder: series {
-        nodes {
-          type
-        }
+    }
+    placeholder: series {
+      nodes {
+        type
       }
     }
   }
+}
 
-  fragment partOfArea2 on Area {
-    partofArea: relationships {
-      areas(type: "part of", direction: "backward") {
-        nodes {
-          target {
-            ... on Area {
-              mbid
-              name
-              ...partOfArea3
-            }
+fragment partOfArea2 on Area {
+  relationships {
+    areas(type: "part of", direction: "backward") {
+      nodes {
+        target {
+          ... on Area {
+            mbid
+            name
+            ...partOfArea3
           }
         }
       }
-      placeholder: series {
-        nodes {
-          type
-        }
+    }
+    placeholder: series {
+      nodes {
+        type
       }
     }
   }
+}
 
-  fragment partOfArea3 on Area {
-    partofArea: relationships {
-      areas(type: "part of", direction: "backward") {
-        nodes {
-          target {
-            ... on Area {
-              mbid
-              name
-              ...partOfArea4
-            }
+fragment partOfArea3 on Area {
+  relationships {
+    areas(type: "part of", direction: "backward") {
+      nodes {
+        target {
+          ... on Area {
+            mbid
+            name
+            ...partOfArea4
           }
         }
       }
-      placeholder: series {
-        nodes {
-          type
-        }
+    }
+    placeholder: series {
+      nodes {
+        type
       }
     }
   }
+}
 
-  fragment partOfArea4 on Area {
-    partofArea: relationships {
-      areas(type: "part of", direction: "backward") {
-        nodes {
-          target {
-            ... on Area {
-              mbid
-              name
-            }
+fragment partOfArea4 on Area {
+  relationships {
+    areas(type: "part of", direction: "backward") {
+      nodes {
+        target {
+          ... on Area {
+            mbid
+            name
           }
         }
       }
-      placeholder: series {
-        nodes {
-          type
-        }
+    }
+    placeholder: series {
+      nodes {
+        type
       }
     }
   }
+}
 `,
       })
       .valueChanges
@@ -812,12 +667,12 @@ export class ArtistComponent implements OnInit {
         map((result: any) => result)
       )
       .subscribe(result => {
-        console.log('got data', result.data.result.artist);
-        //this.entity = result.data.result.artist;
-        //this.saveArtist(result.data.result.artist);
+        console.log('got data', result.data.lookup.artist);
+        //this.entity = result.data.lookup.artist;
+        //this.saveArtist(result.data.lookup.artist);
         //this.loading = result.loading;
         //this.error = result.error;
-        this.artistService.saveArtist(JSON.stringify(result.data.result.artist))
+        this.artistService.saveArtist(JSON.stringify(result.data.lookup.artist))
           .subscribe(result => {
             console.log('got data', result);
             this.entity = result.data.saveArtist;
